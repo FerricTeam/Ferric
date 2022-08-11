@@ -1,4 +1,6 @@
 ﻿using System;
+using Ferric.API.EventArgs.Server;
+using Ferric.EventHandlers;
 using Console = Ferric.API.Wrappers.Console;
 
 namespace Example
@@ -21,12 +23,20 @@ namespace Example
             Console.Debug($"Config string: {Cfg.textValue}");
             Console.Debug($"Config bool: {Cfg.boolValue}");
             Console.Debug($"Config float: {Cfg.floatValue}");
+
+            ServerHandler.SendingServerCommand += SendingCommand;
         }
 
         public override void OnDisabled()
         {
-            // not yet implemented kekw
+            // implemented (͠≖ ͜ʖ͠≖)
             Console.Debug("Disabled!");
+            ServerHandler.SendingServerCommand -= SendingCommand;
+        }
+
+        private void SendingCommand(SendingServerCommandEventArgs ev)
+        {
+            Console.Debug("SendingCommand works!");
         }
     }
 }

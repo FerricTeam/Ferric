@@ -10,13 +10,13 @@ namespace Ferric.API.Features
         public virtual Assembly Assembly { get; set; }
         
         /// <inheritdoc />
-        public virtual string ID { get; }
+        public abstract string ID { get; }
         
         /// <inheritdoc />
         public virtual string Author { get; }
         
         /// <inheritdoc />
-        public virtual string Name { get; }
+        public abstract string Name { get; }
         
         /// <inheritdoc />
         public virtual Version Version { get; }

@@ -44,6 +44,12 @@
         <Reference Include="Assembly-CSharp-firstpass">
           <HintPath>$(FERRIC_REFS)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
+        <Reference Include="Facepunch.Console">
+          <HintPath>$(FERRIC_REFS)\Facepunch.Console-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Network">
+          <HintPath>$(FERRIC_REFS)\Facepunch.Network.dll</HintPath>
+        </Reference>
         <Reference Include="Facepunch.Sqlite">
           <HintPath>$(FERRIC_REFS)\Facepunch.Sqlite.dll</HintPath>
         </Reference>
@@ -122,14 +128,21 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="API\EventArgs\Interfaces\IDenyable.cs" />
+        <Compile Include="API\EventArgs\Interfaces\IEventArg.cs" />
+        <Compile Include="API\EventArgs\Server\ServerCommandEventArgs.cs" />
         <Compile Include="API\Features\Config.cs" />
         <Compile Include="API\Features\Plugin.cs" />
         <Compile Include="API\Interfaces\IPlugin.cs" />
         <Compile Include="API\Wrappers\Console.cs" />
         <Compile Include="API\Wrappers\Server.cs" />
         <Compile Include="ConfigManager.cs" />
+        <Compile Include="EventHandlers\Extensions.cs" />
+        <Compile Include="EventHandlers\ServerHandler.cs" />
         <Compile Include="Loader.cs" />
+        <Compile Include="Patches\Events\Server\ConsoleSystemInternalPatch.cs" />
         <Compile Include="Patches\Events\Server\ServerInformationUpdatedPatch.cs" />
+        <Compile Include="Patches\Events\Server\ServerShutdownPatch.cs" />
         <Compile Include="Patches\Patcher.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

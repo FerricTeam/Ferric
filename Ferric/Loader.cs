@@ -20,9 +20,12 @@ namespace Ferric
         /// The directory location of the ferric assembly.
         /// </summary>
         public static readonly string ferricDir = Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName;
+        /// <summary>
+        /// The directory location of the dependencies folder.
+        /// </summary>
         public static readonly string DependenciesFolder = Path.Combine(ferricDir, "Dependencies");
         /// <summary>
-        /// The directory location of the plugin folders.
+        /// The directory location of the plugin folder.
         /// </summary>
         public static readonly string PluginFolder = Path.Combine(ferricDir, "Plugins");
         /// <summary>
@@ -196,6 +199,24 @@ namespace Ferric
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Disabled all plugins.
+        /// </summary>
+        internal static void Shutdown()
+        {
+            foreach (var plugin in Plugins)
+            {
+                try
+                {
+                    plugin.OnDisabled();
+                }
+                catch (Exception e)
+                {
+                    Console.Error($"{plugin.Name} threw an error disabling: {e}");
+                }
+            }
         }
         
         /// <summary>
