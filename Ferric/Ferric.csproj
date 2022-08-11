@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +11,7 @@
         <AssemblyName>Ferric</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +22,7 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,18 +32,111 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
-        <Reference Include="System.Xml"/>
+        <Reference Include="0Harmony">
+          <HintPath>$(FERRIC_REFS)\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>$(FERRIC_REFS)\Assembly-CSharp-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>$(FERRIC_REFS)\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Sqlite">
+          <HintPath>$(FERRIC_REFS)\Facepunch.Sqlite.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.SteamNetworking">
+          <HintPath>$(FERRIC_REFS)\Facepunch.SteamNetworking.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Steamworks.Win64">
+          <HintPath>$(FERRIC_REFS)\Facepunch.Steamworks.Win64.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.System">
+          <HintPath>$(FERRIC_REFS)\Facepunch.System.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Unity">
+          <HintPath>$(FERRIC_REFS)\Facepunch.Unity.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.UnityEngine">
+          <HintPath>$(FERRIC_REFS)\Facepunch.UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="MP3Sharp">
+          <HintPath>$(FERRIC_REFS)\MP3Sharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+          <HintPath>..\packages\Newtonsoft.Json.13.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Data">
+          <HintPath>$(FERRIC_REFS)\Rust.Data.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Demo">
+          <HintPath>$(FERRIC_REFS)\Rust.Demo.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.FileSystem">
+          <HintPath>$(FERRIC_REFS)\Rust.FileSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Global">
+          <HintPath>$(FERRIC_REFS)\Rust.Global.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Harmony">
+          <HintPath>$(FERRIC_REFS)\Rust.Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Localization">
+          <HintPath>$(FERRIC_REFS)\Rust.Localization.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Platform">
+          <HintPath>$(FERRIC_REFS)\Rust.Platform.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Platform.Common">
+          <HintPath>$(FERRIC_REFS)\Rust.Platform.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Platform.Steam">
+          <HintPath>$(FERRIC_REFS)\Rust.Platform.Steam.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.UI">
+          <HintPath>$(FERRIC_REFS)\Rust.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.Workshop">
+          <HintPath>$(FERRIC_REFS)\Rust.Workshop.dll</HintPath>
+        </Reference>
+        <Reference Include="Rust.World">
+          <HintPath>$(FERRIC_REFS)\Rust.World.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine">
+          <HintPath>$(FERRIC_REFS)\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>$(FERRIC_REFS)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+          <HintPath>$(FERRIC_REFS)\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+          <HintPath>$(FERRIC_REFS)\UnityEngine.UI.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Class1.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="API\Features\Config.cs" />
+        <Compile Include="API\Features\Plugin.cs" />
+        <Compile Include="API\Interfaces\IPlugin.cs" />
+        <Compile Include="API\Wrappers\Console.cs" />
+        <Compile Include="API\Wrappers\Server.cs" />
+        <Compile Include="ConfigManager.cs" />
+        <Compile Include="Loader.cs" />
+        <Compile Include="Patches\Events\Server\ServerInformationUpdatedPatch.cs" />
+        <Compile Include="Patches\Patcher.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <ItemGroup>
+      <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
