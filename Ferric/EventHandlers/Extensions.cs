@@ -9,6 +9,8 @@ namespace Ferric.EventHandlers
         public static void InvokeSafely<T>(this Action<T> action, T args)
             where T : IEventArg
         {
+            if (action is null || action.GetInvocationList().Length == 0)
+                return;
             foreach (var subscriber in action.GetInvocationList())
             {
                 try

@@ -148,9 +148,11 @@ namespace Ferric
                 {
                     if(plugin.Config.Enabled)
                     {
+                        Console.Info($"{plugin.Name} by {plugin.Author} - v{plugin.Version} has been enabled");
                         plugin.OnEnabled();
                         if (plugin.IsModded && !Server.IsModded)
                             Server.IsModded = true;
+                        continue;
                     }
                 }
                 catch (Exception e)

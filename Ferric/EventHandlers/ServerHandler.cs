@@ -10,6 +10,17 @@ namespace Ferric.EventHandlers
         /// Invoked when a <see cref="Console"/> command is sent.
         /// </summary>
         public static event Action<SendingServerCommandEventArgs> SendingServerCommand;
-        internal static void OnSendingServerCommand(SendingServerCommandEventArgs args) => SendingServerCommand.InvokeSafely(args);
+
+        internal static void OnSendingServerCommand(SendingServerCommandEventArgs args)
+        {
+            try
+            {
+                SendingServerCommand.InvokeSafely(args);
+            }
+            catch (Exception e)
+            {
+                Console.Error(e);
+            }
+        }
     }
 }
