@@ -33,24 +33,27 @@ Plugin framework for Facepunch's Rust.
 - To use the config:
   - Cast the config to your custom config (config as MyConfig)
   - Recommended to make a method for that (in Plugin class: ```public MyConfig GetConfig => Config as MyConfig```)
-- Events TBA
+- Subscribing to events:
+ - Subscribe to the C# actions in the corresponding handler (server-related events in the ```ServerHandler``` class)
+   - You will typically want to do this in ```OnEnabled``` and its considered good practice to unsubscribe from everything in ```OnDisabled``` (called on server shutdown - use it to save any data)
 
 ## For people looking to contribute:
 Here is a quick rundown of how Ferric works:
 
 - The Patcher takes the Injection class and puts it inside the server assembly.
 - Then it will add a call in Bootstrap::StartServer to Injection:.Start
-- Injection::Start checks if it can find the Ferric folder and Ferric.dll and calls Loader::LoadAll in Ferric.dll
-- Loader::LoadAll does a few things:
+- ```Injection::Start``` checks if it can find the Ferric folder and Ferric.dll and calls ```Loader::LoadAll``` in Ferric.dll
+- ```Loader::LoadAll``` does a few things:
   - It checks the dependency folder and load all dlls in it
     - If it cannot find all of the dlls specified in an array it will cancel the initialization (currently: Newtonsoft.json)
   - It checks the plugin folder for plugins and loads them (not enable)
-  - Creates a harmony instance and does PatchAll
+  - Creates a harmony instance and calls ```HarmonyInstace::PatchAll```
   - Then it will call ConfigManager which does:
     - Check the config folder for files matching loaded plugins ID's
     - Deserialize the file into the plugins config type
     - Set the plugins config to the deserialized object
-  - Lastly the Loader calls OnEnabled in all loaded plugins (if the config has Enabled = true and the RequiredFerricVersion matches)
+  - Lastly the Loader calls ```OnEnabled``` in all loaded plugins (if the config has ```Enabled = true``` and the ```RequiredFerricVersion``` matches)
+- When an patched event method is called the corresponding handler method is called which invokes the event.
 
 Check todo for what you can do.
 Bug reports, suggestions and pull requests are welcome.
