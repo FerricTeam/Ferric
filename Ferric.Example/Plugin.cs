@@ -37,6 +37,21 @@ namespace Example
         private void SendingCommand(SendingServerCommandEventArgs ev)
         {
             Console.Debug("SendingCommand works!");
+            Console.Debug(string.Concat(new object[]
+            {
+                "Allowed: ",
+                ev.Allowed,
+                "; Arguments: ",
+                string.Join("; ", ev.Arguments ?? new []{"null"}),
+                "; Command details: ",
+                ev.Command.Name,
+                ev.Command.Parent,
+                ev.Command.Description,
+                "; Permission: ",
+                ev.HasPermission,
+                "; Invalid: ",
+                ev.ConsoleSystemArg.Invalid
+            }));
         }
     }
 }

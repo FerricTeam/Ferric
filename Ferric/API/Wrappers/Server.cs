@@ -1,5 +1,8 @@
 namespace Ferric.API.Wrappers
 {
+    /// <summary>
+    /// Used to handle server-related things.
+    /// </summary>
     public static class Server
     {
         /// <summary>

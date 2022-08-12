@@ -130,11 +130,13 @@
     <ItemGroup>
         <Compile Include="API\EventArgs\Interfaces\IDenyable.cs" />
         <Compile Include="API\EventArgs\Interfaces\IEventArg.cs" />
+        <Compile Include="API\EventArgs\Interfaces\IPlayerEvent.cs" />
         <Compile Include="API\EventArgs\Server\ServerCommandEventArgs.cs" />
         <Compile Include="API\Features\Config.cs" />
         <Compile Include="API\Features\Plugin.cs" />
         <Compile Include="API\Interfaces\IPlugin.cs" />
         <Compile Include="API\Wrappers\Console.cs" />
+        <Compile Include="API\Wrappers\Player.cs" />
         <Compile Include="API\Wrappers\Server.cs" />
         <Compile Include="ConfigManager.cs" />
         <Compile Include="EventHandlers\Extensions.cs" />
@@ -148,6 +150,9 @@
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="API\EventArgs\Player" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

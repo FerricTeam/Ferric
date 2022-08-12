@@ -4,8 +4,17 @@ using Console = Ferric.API.Wrappers.Console;
 
 namespace Ferric.EventHandlers
 {
+    /// <summary>
+    /// Extensions for events.
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Invokes a method while catching errors.
+        /// </summary>
+        /// <param name="action">The <see cref="Action"/> to invoke.</param>
+        /// <param name="args">The action arguments.</param>
+        /// <typeparam name="T">The actions type parameter.</typeparam>
         public static void InvokeSafely<T>(this Action<T> action, T args)
             where T : IEventArg
         {
