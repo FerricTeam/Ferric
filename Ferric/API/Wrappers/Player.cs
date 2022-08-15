@@ -21,7 +21,6 @@ namespace Ferric.API.Wrappers
         public Player(BasePlayer basePlayer)
         {
             _basePlayer = basePlayer;
-            List.Add(this);
         }
     }
 }
