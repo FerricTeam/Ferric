@@ -137,6 +137,7 @@
         <Compile Include="API\Features\Plugin.cs" />
         <Compile Include="API\Interfaces\IPlugin.cs" />
         <Compile Include="API\Wrappers\Console.cs" />
+        <Compile Include="API\Wrappers\Items\Item.cs" />
         <Compile Include="API\Wrappers\Player.cs" />
         <Compile Include="API\Wrappers\Server.cs" />
         <Compile Include="ConfigManager.cs" />
