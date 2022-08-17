@@ -6,7 +6,7 @@ namespace Ferric.Patches.Events.Server
     /// Patches ServerMgr.Shutdown.
     /// </summary>
     [HarmonyPatch(typeof(ServerMgr), nameof(ServerMgr.Shutdown))]
-    public static class ServerShutdownPatch
+    internal static class ServerShutdownPatch
     {
         static void Prefix()
         {

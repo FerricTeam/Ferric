@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Ferric.Patches.Events.Server
 {
+    /// <summary>
+    /// Patches <see cref="ConsoleSystem.Internal"/>.
+    /// </summary>
     [HarmonyPatch(typeof(ConsoleSystem), nameof(ConsoleSystem.Internal))]
-    public static class ConsoleSystemInternalPatch
+    internal static class ConsoleSystemInternalPatch
     {
         public static bool Prefix(ConsoleSystem __instance, ConsoleSystem.Arg arg)
         {

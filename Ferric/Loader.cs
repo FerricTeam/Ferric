@@ -14,6 +14,8 @@ using Console = Ferric.API.Wrappers.Console;
 
 namespace Ferric
 {
+    using System.Collections;
+
     public static class Loader
     {
         /// <summary>

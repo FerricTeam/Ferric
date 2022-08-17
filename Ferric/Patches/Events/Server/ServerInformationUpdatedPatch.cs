@@ -8,7 +8,7 @@ namespace Ferric.Patches.Events.Server
     /// Patches ServerMgr.UpdateServerInformation.
     /// </summary>
     [HarmonyPatch(typeof(ServerMgr), nameof(ServerMgr.UpdateServerInformation))]
-    public static class ServerInformationUpdatedPatch
+    internal static class ServerInformationUpdatedPatch
     {
         static void Prefix()
         {

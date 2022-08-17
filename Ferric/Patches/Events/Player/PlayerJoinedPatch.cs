@@ -9,12 +9,12 @@ namespace Ferric.Patches.Events.Player
     /// <summary>
     /// Patches <see cref="BasePlayer.PlayerInit"/>.
     /// </summary>
-    [HarmonyPatch(typeof(BasePlayer), nameof(BasePlayer.PlayerInit))]
+    //[HarmonyPatch(typeof(BasePlayer), nameof(BasePlayer.PlayerInit))]
     public static class PlayerJoinedPatch
     {
-        public static void Postfix(BasePlayer __instace, Connection c)
+        public static void Postfix(BasePlayer __instance, Connection c)
         {
-            var ply = new Player(__instace);
+            var ply = new Player(__instance);
             Player.List.Add(ply);
             PlayerHandler.OnPlayerJoined(new PlayerJoinedEventArgs(ply));
         }
