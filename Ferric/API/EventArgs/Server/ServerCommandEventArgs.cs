@@ -19,19 +19,19 @@ namespace Ferric.API.EventArgs.Server
         public ConsoleSystem.Arg ConsoleSystemArg { get; }
         
         /// <summary>
-        /// The <see cref="ConsoleSystem.Command"/> linked to the command.
+        /// Gets the <see cref="ConsoleSystem.Command"/> linked to the command.
         /// </summary>
-        public ConsoleSystem.Command Command { get; set; } 
+        public ConsoleSystem.Command Command { get; } 
 
         /// <summary>
-        /// The arguments used with the command. Can be null if none are used.
+        /// Gets or sets the arguments used with the command. Can be null if none are used.
         /// </summary>
         public string[]? Arguments { get; set; }
         
         /// <summary>
-        /// Whether or not the sender has permission to run this command.
+        /// Gets whether or not the sender has permission to run this command.
         /// </summary>
-        public bool HasPermission { get; set; }
+        public bool HasPermission { get; }
 
         public SendingServerCommandEventArgs(ConsoleSystem.Arg args)
         {

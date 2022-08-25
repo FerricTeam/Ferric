@@ -1,9 +1,11 @@
-using System;
-using System.Reflection;
-using Ferric.API.Interfaces;
-
 namespace Ferric.API.Features
 {
+    using System;
+    using System.Collections;
+    using System.Reflection;
+    using Interfaces;
+    using Console = Wrappers.Console;
+
     public abstract class Plugin : IPlugin
     {
         /// <inheritdoc />
@@ -38,6 +40,24 @@ namespace Ferric.API.Features
         /// <inheritdoc />
         public virtual void OnDisabled()
         {
+        }
+        
+        public void CallDelayed(float seconds, Action action)
+        {
+            ServerMgr.Instance.StartCoroutine(WaitForSecondsCoroutine(seconds, action));
+        }
+        
+        private IEnumerator WaitForSecondsCoroutine(float seconds, Action action)
+        {
+            yield return UnityEngine.CoroutineEx.waitForSeconds(seconds);
+            try
+            {
+                action();
+            }
+            catch (Exception e)
+            {
+                Console.Error($"Plugin {Name} by {Author} - v{Version} threw an exception in a delayed call: {e}");
+            }
         }
     }
 }

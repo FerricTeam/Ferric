@@ -15,6 +15,11 @@ namespace Ferric.EventHandlers
         public static event Action<SendingServerCommandEventArgs> SendingServerCommand;
 
         /// <summary>
+        /// Invoked when a <see cref="Console"/> message is sent.
+        /// </summary>
+        public static event Action<ServerOnMessageEventArgs> ServerOnMessage;
+        
+        /// <summary>
         /// Called when a <see cref="Console"/> command is sent.
         /// </summary>
         /// <param name="args">The event arguments.</param>
@@ -23,6 +28,22 @@ namespace Ferric.EventHandlers
             try
             {
                 SendingServerCommand.InvokeSafely(args);
+            }
+            catch (Exception e)
+            {
+                Console.Error(e);
+            }
+        }
+        
+        /// <summary>
+        /// Called when a <see cref="Console"/> message is sent.
+        /// </summary>
+        /// <param name="args">The event arguments.</param>
+        internal static void OnServerOnMessage(ServerOnMessageEventArgs args)
+        {
+            try
+            {
+                ServerOnMessage.InvokeSafely(args);
             }
             catch (Exception e)
             {

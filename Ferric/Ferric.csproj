@@ -133,6 +133,7 @@
         <Compile Include="API\EventArgs\Interfaces\IPlayerEvent.cs" />
         <Compile Include="API\EventArgs\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="API\EventArgs\Server\ServerCommandEventArgs.cs" />
+        <Compile Include="API\EventArgs\Server\ServerOnMessageEventArgs.cs" />
         <Compile Include="API\Features\Config.cs" />
         <Compile Include="API\Features\Plugin.cs" />
         <Compile Include="API\Interfaces\IPlugin.cs" />

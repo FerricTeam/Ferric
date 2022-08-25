@@ -1,6 +1,8 @@
 namespace Ferric.Patches.Events.Server
 {
 	using System;
+	using API.EventArgs.Server;
+	using EventHandlers;
 	using Facepunch;
 	using Facepunch.Math;
 	using Harmony;
@@ -46,8 +48,18 @@ namespace Ferric.Patches.Events.Server
 		};
 
 		// port this to IL someday.
-        public static bool Prefix(string log, string stacktrace, LogType type)
+        public static bool Prefix(ref string log, ref string stacktrace, ref LogType type)
         {
+	        var args = new ServerOnMessageEventArgs(log, stacktrace, type);
+	        ServerHandler.OnServerOnMessage(args);
+
+	        if (!args.Allowed)
+		        return false;
+	        
+	        log = args.Message;
+	        stacktrace = args.Stacktrace;
+	        type = args.LogType;
+	        
 	        return true;
         }
     }

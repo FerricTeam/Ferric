@@ -5,6 +5,8 @@ using Console = Ferric.API.Wrappers.Console;
 
 namespace Example
 {
+    using UnityEngine;
+
     public class Plugin : Ferric.API.Features.Plugin
     {
         public override string ID { get; } = "FerricExample";
@@ -24,16 +26,22 @@ namespace Example
             Console.Debug($"Config bool: {Cfg.boolValue}");
             Console.Debug($"Config float: {Cfg.floatValue}");
 
-            ServerHandler.SendingServerCommand += SendingCommand;
+            ServerHandler.ServerOnMessage += ServerOnMessage;
         }
 
         public override void OnDisabled()
         {
             // implemented (͠≖ ͜ʖ͠≖)
             Console.Debug("Disabled!");
-            ServerHandler.SendingServerCommand -= SendingCommand;
+            ServerHandler.ServerOnMessage -= ServerOnMessage;
         }
 
+        private void ServerOnMessage(ServerOnMessageEventArgs ev)
+        {
+            ev.Message = "Message";
+            CallDelayed(4f, () => Console.Debug("Delayed message"));
+        }
+        
         private void SendingCommand(SendingServerCommandEventArgs ev)
         {
             Console.Debug("SendingCommand works!");

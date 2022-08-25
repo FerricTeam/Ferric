@@ -11,7 +11,7 @@ namespace Ferric.Patches.Events.Server
     [HarmonyPatch(typeof(ConsoleSystem), nameof(ConsoleSystem.Internal))]
     internal static class ConsoleSystemInternalPatch
     {
-        public static bool Prefix(ConsoleSystem __instance, ConsoleSystem.Arg arg)
+        public static bool Prefix(ConsoleSystem __instance, ref ConsoleSystem.Arg arg)
         {
             if (arg is null || arg.Connection is not null && arg.Player() is null)
             {
@@ -29,6 +29,8 @@ namespace Ferric.Patches.Events.Server
             if (!args.Allowed)
                 return false;
 
+            arg.Args = args.Arguments;
+            
             return true;
         }
     }
