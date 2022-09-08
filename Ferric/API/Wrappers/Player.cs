@@ -1,26 +1,24 @@
-using System.Collections.Generic;
-
 namespace Ferric.API.Wrappers
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents a player on the server.
     /// </summary>
     public class Player
     {
-        private BasePlayer _basePlayer;
-        
         /// <summary>
         /// A list of all online players.
         /// </summary>
         public static List<Player> List = new();
 
         /// <summary>
-        /// Creates a <see cref="Player"/> instance via a BasePlayer.
+        /// Initializes a new instance of the <see cref="Player"/> class via a BasePlayer.
         /// </summary>
         /// <param name="basePlayer">The BasePlayer object.</param>
         public Player(BasePlayer basePlayer)
         {
-            _basePlayer = basePlayer;
+            this.basePlayer = basePlayer;
         }
 
         /// <summary>
@@ -28,13 +26,15 @@ namespace Ferric.API.Wrappers
         /// </summary>
         public float Health
         {
-            get => _basePlayer.health;
-            set => _basePlayer.health = value;
+            get => basePlayer.health;
+            set => basePlayer.health = value;
         }
 
         /// <summary>
         /// Gets the <see cref="Player"/>s inventory.
         /// </summary>
-        public PlayerInventory Inventory => _basePlayer.inventory;
+        public PlayerInventory Inventory => basePlayer.inventory;
+
+        private BasePlayer basePlayer;
     }
 }

@@ -1,32 +1,39 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using UnityEngine;
-
-namespace Ferric.Injection
+﻿namespace Ferric.Injection
 {
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using UnityEngine;
+
+    /// <summary>
+    /// The main class.
+    /// </summary>
     public class Injection
     {
-        static bool loaded = false;
-        
+        private static bool isLoaded = false;
+
+        /// <summary>
+        /// The entrypoint method.
+        /// </summary>
         public static void Start()
         {
-            string ferricDir = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.Parent?.Parent?.FullName,
+            string ferricDir = Path.Combine(
+                Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.Parent?.Parent?.FullName,
                 "Ferric");
-    
-            if (loaded)
+
+            if (isLoaded)
                 return;
 
             if (!Directory.Exists(ferricDir) || !File.Exists(Path.Combine(ferricDir, "Ferric.dll")))
             {
-                ServerConsole.PrintColoured(					
+                ServerConsole.PrintColoured(
                     ConsoleColor.DarkRed,
                     "[Ferric] ",
                     ConsoleColor.Red,
                     "Couldn't find Ferric file, aborting.");
                 return;
             }
-            
+
             ServerConsole.PrintColoured(
                 ConsoleColor.DarkRed,
                 "[Ferric] ",
@@ -38,10 +45,9 @@ namespace Ferric.Injection
                 .GetMethod("LoadAll")
                 ?.Invoke(
                     null,
-                    null
-                    );
+                    null);
 
-            loaded = true;
+            isLoaded = true;
         }
     }
 }

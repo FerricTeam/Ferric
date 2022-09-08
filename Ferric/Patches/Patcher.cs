@@ -1,20 +1,26 @@
-using Harmony;
-
 namespace Ferric.Patches
 {
+    using Harmony;
+
+    /// <summary>
+    /// Handles game patching.
+    /// </summary>
     public static class Patcher
     {
-        public static HarmonyInstance Harmony => _harmony;
-        static HarmonyInstance _harmony;
-        
+        /// <summary>
+        /// Gets the Harmony instance.
+        /// </summary>
+        public static HarmonyInstance Harmony => harmony;
+        private static HarmonyInstance harmony;
+
         /// <summary>
         /// Creates and calls PatchAll() on a new harmony instance.
         /// </summary>
-        /// <param name="harmonyId">The <see cref="Harmony.Id"/></param>
+        /// <param name="harmonyId">The Harmony ID.</param>
         internal static void PatchAll(string harmonyId)
         {
-            _harmony = HarmonyInstance.Create(harmonyId);
-            _harmony.PatchAll();
+            harmony = HarmonyInstance.Create(harmonyId);
+            harmony.PatchAll();
         }
 
         /// <summary>
@@ -22,8 +28,8 @@ namespace Ferric.Patches
         /// </summary>
         internal static void UnpatchAll()
         {
-            _harmony.UnpatchAll(_harmony.Id);
-            _harmony = null;
+            harmony.UnpatchAll(harmony.Id);
+            harmony = null;
         }
     }
 }

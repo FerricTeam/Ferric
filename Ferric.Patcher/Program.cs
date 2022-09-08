@@ -1,23 +1,32 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using dnlib.DotNet;
-using dnlib.DotNet.Emit;
+﻿// ReSharper disable MemberCanBePrivate.Global
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1400 // Access modifier should be declared
+#pragma warning disable SA1306 // Field names should begin with lower-case letter
 
 namespace Ferric.Patcher
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using dnlib.DotNet;
+    using dnlib.DotNet.Emit;
+
+    /// <summary>
+    /// The main class.
+    /// </summary>
     internal class Program
     {
-        public static readonly string AssemblyPath = "Assembly-CSharp.dll";
-        public static readonly string InjectedAssemblyPath = "Assembly-CSharp-Ferric.dll";
-        public static readonly string InjectionPath = "Ferric.Injection.dll";
-        
-        public static readonly string BootstrapType = "Bootstrap";
-        public static readonly string BootstrapMethod= "StartServer";
-        public static readonly string InjectionType = "Ferric.Injection.Injection";
-        public static readonly string InjectionMethod = "Start";
+        static readonly string AssemblyPath = "Assembly-CSharp.dll";
+        static readonly string InjectedAssemblyPath = "Assembly-CSharp-Ferric.dll";
+        static readonly string InjectionPath = "Ferric.Injection.dll";
+
+        static readonly string BootstrapType = "Bootstrap";
+        static readonly string BootstrapMethod = "StartServer";
+
+        static readonly string InjectionType = "Ferric.Injection.Injection";
+        static readonly string InjectionMethod = "Start";
 
         static ModuleDef ServerAssembly;
         static ModuleDef InjectionAssembly;
@@ -26,50 +35,45 @@ namespace Ferric.Patcher
         static MethodDef BootstrapMethodDef;
         static TypeDef InjectionTypeDef;
         static MethodDef InjectionMethodDef;
-        
+
         static void Main(string[] args)
         {
             try
             {
                 Console.WriteLine("Loading assemblies...");
                 LoadAllAssemblies();
-                
-                
+
                 Console.WriteLine("Locating injection...");
                 InjectionTypeDef = FindType(InjectionAssembly, InjectionType);
-                if(InjectionTypeDef is null)
+                if (InjectionTypeDef is null)
                     Error($"Could not find Injection class: {InjectionType}");
                 Console.WriteLine($"Found injection: {InjectionTypeDef}");
-                
-                
+
                 Console.WriteLine("Injecting injection...");
-                InjectionTypeDef.Module.Types.Remove(InjectionTypeDef);
+                InjectionTypeDef!.Module.Types.Remove(InjectionTypeDef);
                 Inject(ServerAssembly, InjectionTypeDef);
                 InjectionMethodDef = FindMethod(InjectionTypeDef, InjectionMethod);
-                if(InjectionMethodDef is null)
+                if (InjectionMethodDef is null)
                     Error("Could not locate injected method");
                 Console.WriteLine("Injected");
-                
+
                 Console.WriteLine($"Locating {BootstrapType}::{BootstrapMethod}...");
                 BootstrapTypeDef = FindType(ServerAssembly, BootstrapType);
-                if(BootstrapTypeDef is null)
+                if (BootstrapTypeDef is null)
                     Error($"Cannot locate Bootstrap class ({BootstrapType})");
                 BootstrapMethodDef = FindMethod(BootstrapTypeDef, BootstrapMethod);
-                if(BootstrapMethodDef is null)
+                if (BootstrapMethodDef is null)
                     Error($"Cannot locate Bootstrap method ({BootstrapMethod})");
                 Console.WriteLine($"Located {BootstrapType}::{BootstrapMethod}");
-                
-                
-                Console.WriteLine("Patching...");
-                BootstrapMethodDef.Body.Instructions.Insert(0, OpCodes.Call.ToInstruction(InjectionMethodDef));
-                Console.WriteLine("Patched");
 
+                Console.WriteLine("Patching...");
+                BootstrapMethodDef!.Body.Instructions.Insert(0, OpCodes.Call.ToInstruction(InjectionMethodDef));
+                Console.WriteLine("Patched");
 
                 Console.WriteLine("Saving...");
                 ServerAssembly.Write(InjectedAssemblyPath);
                 Console.WriteLine("Saved");
 
-                
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Done!");
                 Thread.Sleep(300);
@@ -85,7 +89,7 @@ namespace Ferric.Patcher
             injection.DeclaringType = null;
             target.Types.Add(injection);
         }
-        
+
         static void LoadAllAssemblies()
         {
             ServerAssembly = LoadAssembly(AssemblyPath);
@@ -93,7 +97,7 @@ namespace Ferric.Patcher
             InjectionAssembly = LoadAssembly(InjectionPath);
             Console.WriteLine($"Loaded {InjectionPath}");
         }
-        
+
         static ModuleDef LoadAssembly(string path)
         {
             Console.WriteLine($"Loading {path}...");
@@ -124,7 +128,7 @@ namespace Ferric.Patcher
 
             return null;
         }
-        
+
         static void Error(string message)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;

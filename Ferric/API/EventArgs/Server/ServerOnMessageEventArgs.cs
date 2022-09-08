@@ -1,13 +1,16 @@
 namespace Ferric.API.EventArgs.Server
 {
-    using Interfaces;
+    using Ferric.API.EventArgs.Interfaces;
     using JetBrains.Annotations;
     using UnityEngine;
 
+    /// <summary>
+    /// Represents all the information when a console message is sent.
+    /// </summary>
     public class ServerOnMessageEventArgs : IEventArg, IDenyable
     {
         /// <summary>
-        /// Gets or sets whether or not the message will be printed to the <see cref="Ferric.API.Wrappers.Console"/>.
+        /// Gets or sets a value indicating whether or not the message will be printed to the <see cref="Ferric.API.Wrappers.Console"/>.
         /// </summary>
         public bool Allowed { get; set; }
 
@@ -15,17 +18,24 @@ namespace Ferric.API.EventArgs.Server
         /// Gets or sets the console message text.
         /// </summary>
         public string Message { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the stacktrace of the message. Can be null.
         /// </summary>
-        public string? Stacktrace { get; set; }
-        
+        [CanBeNull]
+        public string Stacktrace { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="LogType"/> of the message.
         /// </summary>
         public LogType LogType { get; set; }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerOnMessageEventArgs"/> class.
+        /// </summary>
+        /// <param name="message">Message.</param>
+        /// <param name="stacktrace">Stacktrace.</param>
+        /// <param name="logType">LogType.</param>
         public ServerOnMessageEventArgs(string message, string stacktrace, LogType logType)
         {
             Message = message;

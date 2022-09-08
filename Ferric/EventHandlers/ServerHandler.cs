@@ -1,9 +1,9 @@
-using System;
-using Ferric.API.EventArgs.Server;
-using Console = Ferric.API.Wrappers.Console;
-
 namespace Ferric.EventHandlers
 {
+    using System;
+    using Ferric.API.EventArgs.Server;
+    using Console = Ferric.API.Wrappers.Console;
+
     /// <summary>
     /// Used to invoke server-related events.
     /// </summary>
@@ -18,7 +18,7 @@ namespace Ferric.EventHandlers
         /// Invoked when a <see cref="Console"/> message is sent.
         /// </summary>
         public static event Action<ServerOnMessageEventArgs> ServerOnMessage;
-        
+
         /// <summary>
         /// Called when a <see cref="Console"/> command is sent.
         /// </summary>
@@ -34,7 +34,7 @@ namespace Ferric.EventHandlers
                 Console.Error(e);
             }
         }
-        
+
         /// <summary>
         /// Called when a <see cref="Console"/> message is sent.
         /// </summary>

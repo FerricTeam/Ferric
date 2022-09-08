@@ -1,9 +1,9 @@
-using System;
-using Ferric.API.EventArgs.Interfaces;
-using Console = Ferric.API.Wrappers.Console;
-
 namespace Ferric.EventHandlers
 {
+    using System;
+    using Ferric.API.EventArgs.Interfaces;
+    using Console = Ferric.API.Wrappers.Console;
+
     /// <summary>
     /// Extensions for events.
     /// </summary>
@@ -24,7 +24,7 @@ namespace Ferric.EventHandlers
             {
                 try
                 {
-                    subscriber.Method.Invoke(subscriber.Target, new object[]{args});
+                    subscriber.Method.Invoke(subscriber.Target, new object[] { args });
                 }
                 catch (Exception e)
                 {
@@ -34,6 +34,7 @@ namespace Ferric.EventHandlers
                         Console.Error($"Plugin {plugin.Name} by {plugin.Author} - v{plugin.Version} threw an exception while handling the event {action.GetType().GenericTypeArguments[0].FullName ?? "Unknown"}: {e}");
                         continue;
                     }
+
                     Console.Error($"Method {subscriber.Method.Name} in class {subscriber.Method.GetType().FullName} threw an exception while handling the event {action.GetType().GenericTypeArguments[0].FullName ?? "Unknown"}: {e}");
                 }
             }

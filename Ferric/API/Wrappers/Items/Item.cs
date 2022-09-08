@@ -5,16 +5,16 @@ namespace Ferric.API.Wrappers.Items
     /// </summary>
     public class Item
     {
-        private global::Item _baseItem;
+        private global::Item baseItem;
 
         /// <summary>
         /// Gets the <see cref="Item"/>s ID.
         /// </summary>
-        public int Id => _baseItem.info.itemid;
-        
+        public int Id => baseItem.info.itemid;
+
         /// <summary>
         /// Gets the <see cref="Item"/>s owner.
         /// </summary>
-        public BasePlayer Owner => _baseItem.GetOwnerPlayer();
+        public BasePlayer Owner => baseItem.GetOwnerPlayer();
     }
 }

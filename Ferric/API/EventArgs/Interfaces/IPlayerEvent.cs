@@ -1,6 +1,9 @@
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 namespace Ferric.API.EventArgs.Interfaces
 {
-    using Wrappers;
+    using Ferric.API.Wrappers;
 
     /// <summary>
     /// Defines an event containing a player.

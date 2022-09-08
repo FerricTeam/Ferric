@@ -1,9 +1,9 @@
 namespace Ferric.EventHandlers
 {
     using System;
-    using API.EventArgs.Player;
-    using API.Wrappers;
-    using Console =  API.Wrappers.Console;
+    using Ferric.API.EventArgs.Player;
+    using Ferric.API.Wrappers;
+    using Console = Ferric.API.Wrappers.Console;
 
     /// <summary>
     /// Used to invoke player-related events.
