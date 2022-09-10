@@ -130,6 +130,12 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="API\CommandSystem\Command.cs" />
+        <Compile Include="API\CommandSystem\CommandSystem.cs" />
+        <Compile Include="API\CommandSystem\Commands\DebugCommand.cs" />
+        <Compile Include="API\CommandSystem\CommandType.cs" />
+        <Compile Include="API\CommandSystem\ICommand.cs" />
+        <Compile Include="API\CommandSystem\ICommandVariable.cs" />
         <Compile Include="API\EventArgs\Interfaces\IDenyable.cs" />
         <Compile Include="API\EventArgs\Interfaces\IEventArg.cs" />
         <Compile Include="API\EventArgs\Interfaces\IPlayerEvent.cs" />
@@ -137,6 +143,7 @@
         <Compile Include="API\EventArgs\Server\SendingServerCommandEventArgs.cs" />
         <Compile Include="API\EventArgs\Server\ServerOnMessageEventArgs.cs" />
         <Compile Include="API\Features\Config.cs" />
+        <Compile Include="API\Features\Documented.cs" />
         <Compile Include="API\Features\Plugin.cs" />
         <Compile Include="API\Interfaces\IPlugin.cs" />
         <Compile Include="API\Wrappers\Console.cs" />

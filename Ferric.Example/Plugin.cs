@@ -28,16 +28,13 @@ namespace Example
             Console.Debug($"Config string: {Cfg.TextValue}");
             Console.Debug($"Config bool: {Cfg.BoolValue}");
             Console.Debug($"Config float: {Cfg.FloatValue}");
-
-            ServerHandler.ServerOnMessage += ServerOnMessage;
+            Console.Debug($"Config doc float: {Cfg.DocumentedFloatValue.Description} {Cfg.DocumentedFloatValue.Value}");
         }
 
         /// <inheritdoc />
         public override void OnDisabled()
         {
-            // implemented (͠≖ ͜ʖ͠≖)
             Console.Debug("Disabled!");
-            ServerHandler.ServerOnMessage -= ServerOnMessage;
         }
 
         private void ServerOnMessage(ServerOnMessageEventArgs ev)

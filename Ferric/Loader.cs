@@ -8,6 +8,7 @@ namespace Ferric
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Ferric.API.CommandSystem;
     using Ferric.API.Features;
     using Ferric.API.Interfaces;
     using Ferric.API.Wrappers;
@@ -27,21 +28,6 @@ namespace Ferric
         public static readonly string FerricDir = Directory.GetParent(Assembly.GetExecutingAssembly().Location)!.FullName;
 
         /// <summary>
-        /// The directory location of the dependencies folder.
-        /// </summary>
-        public static readonly string DependenciesFolder = Path.Combine(FerricDir, "Dependencies");
-
-        /// <summary>
-        /// The directory location of the plugin folder.
-        /// </summary>
-        public static readonly string PluginFolder = Path.Combine(FerricDir, "Plugins");
-
-        /// <summary>
-        /// The directory location of the plugin configs.
-        /// </summary>
-        public static readonly string ConfigsFolder = Path.Combine(FerricDir, "Configs");
-
-        /// <summary>
         /// A list of all plugins.
         /// </summary>
         public static List<IPlugin> Plugins = new();
@@ -52,17 +38,17 @@ namespace Ferric
         public static Dictionary<Assembly, IPlugin> PluginAssemblies = new();
 
         /// <summary>
+        /// The ferric version of the assembly.
+        /// </summary>
+        public static Version Version = Assembly.GetExecutingAssembly().GetName().Version;
+
+        /// <summary>
         /// An array of required dependencies.
         /// </summary>
         private static readonly string[] Dependencies =
         {
             "Newtonsoft.Json",
         };
-
-        /// <summary>
-        /// The ferric version of the assembly.
-        /// </summary>
-        private static Version version = Assembly.GetExecutingAssembly().GetName().Version;
 
         /// <summary>
         /// Initializes ferric.
@@ -73,14 +59,20 @@ namespace Ferric
 
             Console.Warn($"{currentAssemblyName.Name} - v{currentAssemblyName.Version}");
 
-            if (!Directory.Exists(DependenciesFolder))
+            ConfigManager.LoadFerricConfig();
+
+            var dependenciesFolder = ConfigManager.FerricConfig.Instance.DependenciesFolder;
+            var pluginFolder = ConfigManager.FerricConfig.Instance.PluginFolder;
+            var configFolder = ConfigManager.FerricConfig.Instance.ConfigsFolder;
+
+            if (!Directory.Exists(dependenciesFolder))
             {
-                Console.Error("Cannot find dependencies folder, aborting!");
+                Console.Error($"Cannot find dependencies folder {dependenciesFolder}, aborting!");
                 return;
             }
 
             List<string> dependenciesToLoad = Dependencies.ToList();
-            foreach (var lib in Directory.GetFiles(DependenciesFolder, "*.dll"))
+            foreach (var lib in Directory.GetFiles(dependenciesFolder, "*.dll"))
             {
                 try
                 {
@@ -105,8 +97,8 @@ namespace Ferric
             Patcher.PatchAll($"ferric.{currentAssemblyName.Version}");
 
             Console.Warn("Loading plugins");
-            Directory.CreateDirectory(PluginFolder);
-            foreach (var lib in Directory.GetFiles(PluginFolder, "*.dll"))
+            Directory.CreateDirectory(pluginFolder);
+            foreach (var lib in Directory.GetFiles(pluginFolder, "*.dll"))
             {
                 try
                 {
@@ -143,14 +135,16 @@ namespace Ferric
                 }
             }
 
-            if (!Directory.Exists(ConfigsFolder))
+            if (!Directory.Exists(configFolder))
             {
                 Console.Warn("Cannot find configs, creating defaults...");
-                Directory.CreateDirectory(ConfigsFolder);
+                Directory.CreateDirectory(configFolder);
                 ConfigManager.GenerateDefaultConfigs();
             }
 
-            ConfigManager.LoadConfigs();
+            ConfigManager.LoadPluginConfigs();
+
+            CommandSystem.Init();
 
             foreach (var plugin in Plugins)
             {
@@ -158,12 +152,14 @@ namespace Ferric
                 {
                     if (plugin.Config.Enabled)
                     {
-                        Console.Info($"{plugin.Name} by {plugin.Author} - v{plugin.Version} has been enabled");
                         plugin.OnEnabled();
                         if (plugin.IsModded && !Server.IsModded)
                             Server.IsModded = true;
+                        Console.Info($"{plugin.Name} by {plugin.Author} - v{plugin.Version} has been enabled");
                         continue;
                     }
+
+                    Console.Warn($"Not enabling {plugin.Name} by {plugin.Author} - v{plugin.Version} because it is disabled!");
                 }
                 catch (Exception e)
                 {
@@ -232,7 +228,7 @@ namespace Ferric
 
                 if (plugin.RequiredFerricVersion is not null && !CheckFerricVersion(plugin))
                 {
-                    Console.Warn($"{plugin.Name} required ferric version does not match current version ({plugin.RequiredFerricVersion} vs {version}), it wont be enabled!");
+                    Console.Warn($"{plugin.Name} required ferric version does not match current version ({plugin.RequiredFerricVersion} vs {Version}), it wont be enabled!");
                     continue;
                 }
 
@@ -247,6 +243,6 @@ namespace Ferric
         /// </summary>
         /// <param name="plugin">The plugin to check.</param>
         /// <returns>Whether or not the plugin is compatible with the current ferric version.</returns>
-        private static bool CheckFerricVersion(IPlugin plugin) => plugin.RequiredFerricVersion.Major == version.Major;
+        private static bool CheckFerricVersion(IPlugin plugin) => plugin.RequiredFerricVersion.Major == Version.Major;
     }
 }

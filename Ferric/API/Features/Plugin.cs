@@ -50,6 +50,8 @@ namespace Ferric.API.Features
         /// <param name="action">The <see cref="Action"/> to execute.</param>
         public void CallDelayed(float seconds, Action action)
         {
+            if (ServerMgr.Instance is null)
+                return;
             ServerMgr.Instance.StartCoroutine(WaitForSecondsCoroutine(seconds, action));
         }
 

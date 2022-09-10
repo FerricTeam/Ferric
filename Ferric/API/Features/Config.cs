@@ -8,6 +8,6 @@ namespace Ferric.API.Features
         /// <summary>
         /// Gets or sets a value indicating whether or not the plugin is enabled.
         /// </summary>
-        public virtual bool Enabled { get; set; }
+        public virtual bool Enabled { get; set; } = true;
     }
 }

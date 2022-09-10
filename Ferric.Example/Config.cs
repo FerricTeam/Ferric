@@ -3,6 +3,8 @@
 
 namespace Example
 {
+    using Ferric.API.Features;
+
     /// <inheritdoc />
     public class Config : Ferric.API.Features.Config
     {
@@ -10,5 +12,11 @@ namespace Example
         public string TextValue = "value";
         public bool BoolValue = false;
         public float FloatValue = 3f;
+
+        public Documented<bool> DocumentedFloatValue = new()
+        {
+            Description = "This is a description",
+            Value = true,
+        };
     }
 }

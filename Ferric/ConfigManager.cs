@@ -3,6 +3,7 @@ namespace Ferric
     using System;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using Ferric.API.Features;
     using Newtonsoft.Json;
     using Console = Ferric.API.Wrappers.Console;
@@ -13,11 +14,79 @@ namespace Ferric
     public static class ConfigManager
     {
         /// <summary>
-        /// Loads all configs from the config path.
+        /// Ferric configuration.
         /// </summary>
-        public static void LoadConfigs()
+        public class FerricConfig
         {
-            var files = Directory.GetFiles(Loader.ConfigsFolder, "*.json").ToList().ConvertAll(Path.GetFileNameWithoutExtension);
+            /// <summary>
+            /// Gets the directory where Ferric is located.
+            /// </summary>
+            public static string FerricFolder => Directory.GetParent(Assembly.GetExecutingAssembly().Location)!.FullName;
+
+            /// <summary>
+            /// The directory location of the dependencies folder.
+            /// </summary>
+            public string DependenciesFolder = Path.Combine(FerricFolder, "Dependencies");
+
+            /// <summary>
+            /// The directory location of the plugin folder.
+            /// </summary>
+            public string PluginFolder = Path.Combine(FerricFolder, "Plugins");
+
+            /// <summary>
+            /// The directory location of the plugin configs.
+            /// </summary>
+            public string ConfigsFolder = Path.Combine(FerricFolder, "Configs");
+
+            /// <summary>
+            /// Gets the Singleton.
+            /// </summary>
+            /// <returns>The Instance.</returns>
+            public static FerricConfig Instance => instance ??= new FerricConfig();
+
+            private static FerricConfig instance;
+        }
+
+        /// <summary>
+        /// Loads Ferric configuration.
+        /// </summary>
+        public static void LoadFerricConfig()
+        {
+            var configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
+
+            if (!File.Exists(configFile))
+            {
+                File.Create(configFile).Close();
+            }
+
+            using (StreamReader sr = new StreamReader(configFile))
+            {
+                var content = sr.ReadToEnd().Split('\n');
+                if (content.Length != 3)
+                {
+                    sr.Dispose();
+                    using (var sw = new StreamWriter(configFile))
+                    {
+                        sw.WriteLine(FerricConfig.Instance.DependenciesFolder);
+                        sw.WriteLine(FerricConfig.Instance.PluginFolder);
+                        sw.WriteLine(FerricConfig.Instance.ConfigsFolder);
+                    }
+                }
+                else
+                {
+                    FerricConfig.Instance.DependenciesFolder = content[0];
+                    FerricConfig.Instance.PluginFolder = content[1];
+                    FerricConfig.Instance.ConfigsFolder = content[2];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads all plugin configs from the config path.
+        /// </summary>
+        public static void LoadPluginConfigs()
+        {
+            var files = Directory.GetFiles(FerricConfig.Instance.ConfigsFolder, "*.json").ToList().ConvertAll(Path.GetFileNameWithoutExtension);
 
             if (Loader.Plugins.Count == 0)
                 return;
@@ -28,7 +97,7 @@ namespace Ferric
 
                 if (file is not null)
                 {
-                    using TextReader tr = new StreamReader(Path.Combine(Loader.ConfigsFolder, file + ".json"));
+                    using TextReader tr = new StreamReader(Path.Combine(FerricConfig.Instance.ConfigsFolder, file + ".json"));
                     object deserialized = null;
                     try
                     {
@@ -65,7 +134,7 @@ namespace Ferric
                 else
                 {
                     Console.Warn($"Cannot find config for plugin: {plugin.Name}, generating...");
-                    using var tw = new StreamWriter(Path.Combine(Loader.ConfigsFolder, $"{plugin.ID}.json"));
+                    using var tw = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
                     WriteConfig(tw, plugin.Config);
                 }
             }
@@ -78,7 +147,7 @@ namespace Ferric
         {
             foreach (var plugin in Loader.Plugins)
             {
-                using var tw = new StreamWriter(Path.Combine(Loader.ConfigsFolder, $"{plugin.ID}.json"));
+                using var tw = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
                 WriteConfig(tw, plugin.Config);
             }
         }
