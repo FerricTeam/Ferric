@@ -18,6 +18,12 @@ namespace Ferric.API.CommandSystem
         public static void Init()
         {
             RegisterAssemblyCommands(Assembly.GetExecutingAssembly());
+
+            foreach (var plg in Loader.Plugins.Where(x => x.Config.Enabled))
+            {
+                RegisterAssemblyCommands(plg.Assembly);
+            }
+
             HandleCache();
         }
 

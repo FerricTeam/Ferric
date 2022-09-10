@@ -45,13 +45,14 @@ Here is a quick rundown of how Ferric works:
     - Check the config folder for files matching loaded plugins ID's.
     - Deserialize the file into the plugins config type.
     - Set the plugins config to the deserialized object.
+  - After that ```CommandSystem::Init``` gets called which searches for commands inside plugins and Ferric itself and adds them to the rust console.
   - Lastly the Loader calls ```OnEnabled``` in all loaded plugins (if the config has ```Enabled = true``` and the ```RequiredFerricVersion``` matches)
 - When an patched event method is called the corresponding handler method is called which invokes the event.
 
 Check TODO list below for what you can do.
-Bug reports, suggestions and pull requests are welcome.
+~~Bug reports, suggestions and pull requests are welcome.
 
-## TODO list:
+## TODO list:~~
 - Documentation
 - A shitton of events
 - A shitton more wrapper classes

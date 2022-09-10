@@ -21,7 +21,7 @@ namespace Ferric.API.CommandSystem
         string FullName { get; }
 
         /// <summary>
-        /// Gets a value indicating whether or not the command required admin permissions.
+        /// Gets a value indicating whether or not the command requires admin permissions.
         /// </summary>
         bool ServerAdmin { get; }
 
