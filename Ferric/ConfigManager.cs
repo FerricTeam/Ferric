@@ -66,7 +66,7 @@ namespace Ferric
                 if (content.Length != 3)
                 {
                     streamReader.Dispose();
-                    using (streamWriter streamWriter = new StreamWriter(configFile))
+                    using (StreamWriter streamWriter = new StreamWriter(configFile))
                     {
                         streamWriter.WriteLine(FerricConfig.Instance.DependenciesFolder);
                         streamWriter.WriteLine(FerricConfig.Instance.PluginFolder);
@@ -99,7 +99,7 @@ namespace Ferric
                 if (file is not null)
                 {
                     using TextReader tr = new StreamReader(Path.Combine(FerricConfig.Instance.ConfigsFolder, file + ".json"));
-                    object deserialized;
+                    object deserialized = null;
                     try
                     {
                         deserialized =
