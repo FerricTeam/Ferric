@@ -76,7 +76,7 @@ namespace Ferric.Patcher
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Done!");
-                Thread.Sleep(300);
+                Thread.Sleep(TimeSpan.FromSeconds(0.3));
             }
             catch (Exception e)
             {
