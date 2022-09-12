@@ -1,6 +1,7 @@
 namespace Ferric
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -52,24 +53,24 @@ namespace Ferric
         /// </summary>
         public static void LoadFerricConfig()
         {
-            var configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
+            string configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
 
             if (!File.Exists(configFile))
             {
                 File.Create(configFile).Close();
             }
 
-            using (StreamReader sr = new StreamReader(configFile))
+            using (StreamReader streamReader = new StreamReader(configFile))
             {
-                var content = sr.ReadToEnd().Split('\n');
+                string[] content = streamReader.ReadToEnd().Split('\n');
                 if (content.Length != 3)
                 {
-                    sr.Dispose();
-                    using (var sw = new StreamWriter(configFile))
+                    streamReader.Dispose();
+                    using (StreamWriter streamWriter = new StreamWriter(configFile))
                     {
-                        sw.WriteLine(FerricConfig.Instance.DependenciesFolder);
-                        sw.WriteLine(FerricConfig.Instance.PluginFolder);
-                        sw.WriteLine(FerricConfig.Instance.ConfigsFolder);
+                        streamWriter.WriteLine(FerricConfig.Instance.DependenciesFolder);
+                        streamWriter.WriteLine(FerricConfig.Instance.PluginFolder);
+                        streamWriter.WriteLine(FerricConfig.Instance.ConfigsFolder);
                     }
                 }
                 else
@@ -86,7 +87,7 @@ namespace Ferric
         /// </summary>
         public static void LoadPluginConfigs()
         {
-            var files = Directory.GetFiles(FerricConfig.Instance.ConfigsFolder, "*.json").ToList().ConvertAll(Path.GetFileNameWithoutExtension);
+            List<string> files = Directory.GetFiles(FerricConfig.Instance.ConfigsFolder, "*.json").ToList().ConvertAll(Path.GetFileNameWithoutExtension);
 
             if (Loader.Plugins.Count == 0)
                 return;
@@ -121,9 +122,7 @@ namespace Ferric
                         continue;
                     }
 
-                    Config newConfig = deserialized as Config;
-
-                    if (newConfig is null)
+                    if (deserialized is not Config newConfig)
                     {
                         Console.Error($"File is not a valid config: {file}");
                         continue;
@@ -134,8 +133,8 @@ namespace Ferric
                 else
                 {
                     Console.Warn($"Cannot find config for plugin: {plugin.Name}, generating...");
-                    using var tw = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
-                    WriteConfig(tw, plugin.Config);
+                    using var streamWriter = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
+                    WriteConfig(streamWriter, plugin.Config);
                 }
             }
         }
@@ -147,8 +146,8 @@ namespace Ferric
         {
             foreach (var plugin in Loader.Plugins)
             {
-                using var tw = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
-                WriteConfig(tw, plugin.Config);
+                using var streamWriter = new StreamWriter(Path.Combine(FerricConfig.Instance.ConfigsFolder, $"{plugin.ID}.json"));
+                WriteConfig(streamWriter, plugin.Config);
             }
         }
 

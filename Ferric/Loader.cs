@@ -55,15 +55,15 @@ namespace Ferric
         /// </summary>
         public static void LoadAll()
         {
-            var currentAssemblyName = Assembly.GetExecutingAssembly().GetName();
+            AssemblyName currentAssemblyName = Assembly.GetExecutingAssembly().GetName();
 
             Console.Warn($"{currentAssemblyName.Name} - v{currentAssemblyName.Version}");
 
             ConfigManager.LoadFerricConfig();
 
-            var dependenciesFolder = ConfigManager.FerricConfig.Instance.DependenciesFolder;
-            var pluginFolder = ConfigManager.FerricConfig.Instance.PluginFolder;
-            var configFolder = ConfigManager.FerricConfig.Instance.ConfigsFolder;
+            string dependenciesFolder = ConfigManager.FerricConfig.Instance.DependenciesFolder;
+            string pluginFolder = ConfigManager.FerricConfig.Instance.PluginFolder;
+            string configFolder = ConfigManager.FerricConfig.Instance.ConfigsFolder;
 
             if (!Directory.Exists(dependenciesFolder))
             {
@@ -72,12 +72,12 @@ namespace Ferric
             }
 
             List<string> dependenciesToLoad = Dependencies.ToList();
-            foreach (var lib in Directory.GetFiles(dependenciesFolder, "*.dll"))
+            foreach (string lib in Directory.GetFiles(dependenciesFolder, "*.dll"))
             {
                 try
                 {
-                    var assembly = Assembly.Load(File.ReadAllBytes(lib));
-                    var name = assembly.GetName();
+                    Assembly assembly = Assembly.Load(File.ReadAllBytes(lib));
+                    AssemblyName name = assembly.GetName();
                     dependenciesToLoad.Remove(name.Name);
                     Console.Info($"Loaded dependency {name.Name} - v{name.Version}");
                 }
@@ -98,12 +98,12 @@ namespace Ferric
 
             Console.Warn("Loading plugins");
             Directory.CreateDirectory(pluginFolder);
-            foreach (var lib in Directory.GetFiles(pluginFolder, "*.dll"))
+            foreach (string lib in Directory.GetFiles(pluginFolder, "*.dll"))
             {
                 try
                 {
-                    var assembly = Assembly.Load(File.ReadAllBytes(lib));
-                    var plugin = MakePlugin(assembly);
+                    Assembly assembly = Assembly.Load(File.ReadAllBytes(lib));
+                    IPlugin plugin = MakePlugin(assembly);
                     if (plugin is null)
                     {
                         Console.Error($"{assembly.GetName().Name} is not a valid plugin!");
@@ -176,10 +176,7 @@ namespace Ferric
         /// <param name="id">The <see cref="IPlugin.ID"/> of the plugin.</param>
         /// <returns>The <see cref="IPlugin"/> instance matching the <see cref="IPlugin.ID"/>. Can be null.</returns>
         [CanBeNull]
-        public static IPlugin GetPlugin(string id)
-        {
-            return Plugins.FirstOrDefault(x => x.ID.ToLower() == id.ToLower());
-        }
+        public static IPlugin GetPlugin(string id) => Plugins.FirstOrDefault(x => string.Equals(x.ID, id, StringComparison.CurrentCultureIgnoreCase));
 
         /// <summary>
         /// Disabled all plugins.
@@ -206,7 +203,7 @@ namespace Ferric
         /// <returns>The <see cref="IPlugin"/> instance.</returns>
         private static IPlugin MakePlugin(Assembly assembly)
         {
-            foreach (var type in assembly.GetTypes())
+            foreach (Type type in assembly.GetTypes())
             {
                 if (type.IsAbstract || type.IsInterface)
                     continue;
