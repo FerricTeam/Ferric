@@ -48,9 +48,6 @@ namespace Ferric
             private static FerricConfig instance;
         }
 
-        /// <summary>
-        /// Loads Ferric configuration.
-        /// </summary>
         public static void LoadFerricConfig()
         {
             var configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
@@ -60,21 +57,25 @@ namespace Ferric
                 File.Create(configFile).Close();
             }
 
-            using StreamReader streamReader = new StreamReader(configFile);
-            string[] content = streamReader.ReadToEnd().Split('\n');
-            if (content.Length != 3)
+            using (StreamReader streamReader = new StreamReader(configFile))
             {
-                streamReader.Dispose();
-                using var streamWriter = new StreamWriter(configFile);
-                streamWriter.WriteLine(FerricConfig.Instance.DependenciesFolder);
-                streamWriter.WriteLine(FerricConfig.Instance.PluginFolder);
-                streamWriter.WriteLine(FerricConfig.Instance.ConfigsFolder);
-            }
-            else
-            {
-                FerricConfig.Instance.DependenciesFolder = content[0];
-                FerricConfig.Instance.PluginFolder = content[1];
-                FerricConfig.Instance.ConfigsFolder = content[2];
+                var content = streamReader.ReadToEnd().Split('\n');
+                if (content.Length != 3)
+                {
+                    streamReader.Dispose();
+                    using (var streamWriter = new StreamWriter(configFile))
+                    {
+                        streamWriter.WriteLine(FerricConfig.Instance.DependenciesFolder);
+                        streamWriter.WriteLine(FerricConfig.Instance.PluginFolder);
+                        streamWriter.WriteLine(FerricConfig.Instance.ConfigsFolder);
+                    }
+                }
+                else
+                {
+                    FerricConfig.Instance.DependenciesFolder = content[0];
+                    FerricConfig.Instance.PluginFolder = content[1];
+                    FerricConfig.Instance.ConfigsFolder = content[2];
+                }
             }
         }
 
