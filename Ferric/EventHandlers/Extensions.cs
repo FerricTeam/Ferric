@@ -1,6 +1,7 @@
 namespace Ferric.EventHandlers
 {
     using System;
+    using System.Reflection;
     using Ferric.API.EventArgs.Interfaces;
     using Console = Ferric.API.Wrappers.Console;
 
@@ -28,7 +29,7 @@ namespace Ferric.EventHandlers
                 }
                 catch (Exception e)
                 {
-                    var assembly = subscriber.Method.DeclaringType?.Assembly;
+                    Assembly assembly = subscriber.Method.DeclaringType?.Assembly;
                     if (assembly is not null && Loader.PluginAssemblies.TryGetValue(assembly, out var plugin))
                     {
                         Console.Error($"Plugin {plugin.Name} by {plugin.Author} - v{plugin.Version} threw an exception while handling the event {action.GetType().GenericTypeArguments[0].FullName ?? "Unknown"}: {e}");

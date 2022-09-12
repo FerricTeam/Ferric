@@ -17,7 +17,7 @@ namespace Ferric.Patches.Events.Player
     {
         public static void Postfix(BasePlayer __instance, Connection c)
         {
-            var ply = new Player(__instance);
+            Player ply = new Player(__instance);
             Player.List.Add(ply);
             PlayerHandler.OnPlayerJoined(new PlayerJoinedEventArgs(ply));
         }

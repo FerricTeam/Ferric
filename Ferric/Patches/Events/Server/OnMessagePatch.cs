@@ -50,7 +50,7 @@ namespace Ferric.Patches.Events.Server
         // port this to IL someday.
         public static bool Prefix(ref string log, ref string stacktrace, ref LogType type)
         {
-            var args = new ServerOnMessageEventArgs(log, stacktrace, type);
+            ServerOnMessageEventArgs args = new ServerOnMessageEventArgs(log, stacktrace, type);
             ServerHandler.OnServerOnMessage(args);
 
             if (!args.Allowed)

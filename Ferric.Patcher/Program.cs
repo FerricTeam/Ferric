@@ -16,27 +16,27 @@ namespace Ferric.Patcher
     /// <summary>
     /// The main class.
     /// </summary>
-    internal class Program
+    internal static class Program
     {
-        static readonly string AssemblyPath = "Assembly-CSharp.dll";
-        static readonly string InjectedAssemblyPath = "Assembly-CSharp-Ferric.dll";
-        static readonly string InjectionPath = "Ferric.Injection.dll";
+        private const string AssemblyPath = "Assembly-CSharp.dll";
+        private const string InjectedAssemblyPath = "Assembly-CSharp-Ferric.dll";
+        private const string InjectionPath = "Ferric.Injection.dll";
 
-        static readonly string BootstrapType = "Bootstrap";
-        static readonly string BootstrapMethod = "StartServer";
+        private const string BootstrapType = "Bootstrap";
+        private const string BootstrapMethod = "StartServer";
 
-        static readonly string InjectionType = "Ferric.Injection.Injection";
-        static readonly string InjectionMethod = "Start";
+        private const string InjectionType = "Ferric.Injection.Injection";
+        private const string InjectionMethod = "Start";
 
-        static ModuleDef ServerAssembly;
-        static ModuleDef InjectionAssembly;
+        private static ModuleDef ServerAssembly;
+        private static ModuleDef InjectionAssembly;
 
-        static TypeDef BootstrapTypeDef;
-        static MethodDef BootstrapMethodDef;
-        static TypeDef InjectionTypeDef;
-        static MethodDef InjectionMethodDef;
+        private static TypeDef BootstrapTypeDef;
+        private static MethodDef BootstrapMethodDef;
+        private static TypeDef InjectionTypeDef;
+        private static MethodDef InjectionMethodDef;
 
-        static void Main(string[] args)
+        private static void Main()
         {
             try
             {
@@ -84,13 +84,13 @@ namespace Ferric.Patcher
             }
         }
 
-        static void Inject(ModuleDef target, TypeDef injection)
+        private static void Inject(ModuleDef target, TypeDef injection)
         {
             injection.DeclaringType = null;
             target.Types.Add(injection);
         }
 
-        static void LoadAllAssemblies()
+        private static void LoadAllAssemblies()
         {
             ServerAssembly = LoadAssembly(AssemblyPath);
             Console.WriteLine($"Loaded {AssemblyPath}");
@@ -98,38 +98,17 @@ namespace Ferric.Patcher
             Console.WriteLine($"Loaded {InjectionPath}");
         }
 
-        static ModuleDef LoadAssembly(string path)
+        private static ModuleDef LoadAssembly(string path)
         {
             Console.WriteLine($"Loading {path}...");
             return ModuleDefMD.Load(path);
         }
 
-        static MethodDef FindMethod(TypeDef type, string methodName)
-        {
-            if (type is not null)
-            {
-                foreach (var method in type.Methods)
-                {
-                    if (method.Name == methodName)
-                        return method;
-                }
-            }
+        private static MethodDef FindMethod(TypeDef type, string methodName) => type?.Methods.FirstOrDefault(method => method.Name == methodName);
 
-            return null;
-        }
+        private static TypeDef FindType(ModuleDef module, string path) => module.Types.Where(x => x is not null && x.IsPublic).FirstOrDefault(type => type.FullName == path);
 
-        static TypeDef FindType(ModuleDef module, string path)
-        {
-            foreach (var type in module.Types.Where(x => x is not null && x.IsPublic))
-            {
-                if (type.FullName == path)
-                    return type;
-            }
-
-            return null;
-        }
-
-        static void Error(string message)
+        private static void Error(string message)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(message);
