@@ -35,11 +35,11 @@ namespace Ferric.API.CommandSystem
         /// <summary>
         /// Gets a action to get the current value.
         /// </summary>
-        Action<string> GetOverride { get; }
+        Action<string> GetOveride { get; }
 
         /// <summary>
         /// Gets a action to set a new value.
         /// </summary>
-        Action<string> SetOverride { get; }
+        Action<string> SetOveride { get; }
     }
 }
