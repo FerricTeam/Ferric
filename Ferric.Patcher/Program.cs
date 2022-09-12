@@ -36,7 +36,7 @@ namespace Ferric.Patcher
         private static TypeDef InjectionTypeDef;
         private static MethodDef InjectionMethodDef;
 
-        private static void Main()
+        private static void Main(string[] args)
         {
             try
             {
