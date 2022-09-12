@@ -48,9 +48,12 @@ namespace Ferric
             private static FerricConfig instance;
         }
 
+        /// <summary>
+        /// Loads Ferric configuration.
+        /// </summary>
         public static void LoadFerricConfig()
         {
-            var configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
+            string configFile = Path.Combine(FerricConfig.FerricFolder, "FConfig.txt");
 
             if (!File.Exists(configFile))
             {
@@ -59,11 +62,11 @@ namespace Ferric
 
             using (StreamReader streamReader = new StreamReader(configFile))
             {
-                var content = streamReader.ReadToEnd().Split('\n');
+                string[] content = streamReader.ReadToEnd().Split('\n');
                 if (content.Length != 3)
                 {
                     streamReader.Dispose();
-                    using (var streamWriter = new StreamWriter(configFile))
+                    using (streamWriter streamWriter = new StreamWriter(configFile))
                     {
                         streamWriter.WriteLine(FerricConfig.Instance.DependenciesFolder);
                         streamWriter.WriteLine(FerricConfig.Instance.PluginFolder);

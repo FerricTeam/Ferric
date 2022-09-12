@@ -16,7 +16,7 @@ namespace Ferric.Patcher
     /// <summary>
     /// The main class.
     /// </summary>
-    internal static class Program
+    internal class Program
     {
         private const string AssemblyPath = "Assembly-CSharp.dll";
         private const string InjectedAssemblyPath = "Assembly-CSharp-Ferric.dll";
@@ -76,7 +76,7 @@ namespace Ferric.Patcher
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Done!");
-                Thread.Sleep(TimeSpan.FromSeconds(0.3));
+                Thread.Sleep(TimeSpan.FromSeconds(3));
             }
             catch (Exception e)
             {
