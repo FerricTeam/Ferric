@@ -69,6 +69,11 @@ namespace Ferric.API.Wrappers
         public int Ping => Network.Net.sv.GetAveragePing(basePlayer.net.connection);
 
         /// <summary>
+        /// Gets the players UserId.
+        /// </summary>
+        public string UserId => basePlayer.UserIDString;
+
+        /// <summary>
         /// Gets the PlayerFlags.
         /// </summary>
         public BasePlayer.PlayerFlags Flags => basePlayer.playerFlags;

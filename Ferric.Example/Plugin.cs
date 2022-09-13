@@ -29,6 +29,10 @@ namespace Example
             Console.Debug($"Config bool: {Cfg.BoolValue}");
             Console.Debug($"Config float: {Cfg.FloatValue}");
             Console.Debug($"Config doc float: {Cfg.DocumentedFloatValue.Description} {Cfg.DocumentedFloatValue.Value}");
+
+            ServerHandler.SendingServerCommand += SendingCommand;
+            ServerHandler.ServerOnMessage += ServerOnMessage;
+            PlayerHandler.PlayerJoined += args => Console.Debug($"joined: {args.Player.UserId}, {args.Player.IsAdmin}");
         }
 
         /// <inheritdoc />
@@ -39,8 +43,7 @@ namespace Example
 
         private void ServerOnMessage(ServerOnMessageEventArgs ev)
         {
-            ev.Message = "Message";
-            CallDelayed(4f, () => Console.Debug("Delayed message"));
+            ev.Message += " (modified by plugin)";
         }
 
         private void SendingCommand(SendingServerCommandEventArgs ev)
@@ -61,6 +64,8 @@ namespace Example
                 "; Invalid: ",
                 ev.ConsoleSystemArg.Invalid,
             }));
+
+            CallDelayed(4f, () => Console.Debug("Delayed message"));
         }
     }
 }

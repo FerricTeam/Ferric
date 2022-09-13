@@ -7,12 +7,13 @@ namespace Ferric.Patches.Events.Player
     using Ferric.API.EventArgs.Player;
     using Ferric.API.Wrappers;
     using Ferric.EventHandlers;
+    using Harmony;
     using Network;
 
     /// <summary>
     /// Patches <see cref="BasePlayer.PlayerInit"/>.
     /// </summary>
-    // [HarmonyPatch(typeof(BasePlayer), nameof(BasePlayer.PlayerInit))]
+    [HarmonyPatch(typeof(BasePlayer), nameof(BasePlayer.PlayerInit))]
     public static class PlayerJoinedPatch
     {
         public static void Postfix(BasePlayer __instance, Connection c)
