@@ -1,17 +1,16 @@
 namespace Ferric.API.Wrappers
 {
     using System;
-    using System.Reflection;
 
     /// <summary>
-    /// Used to handle server console-related things.
+    /// A wrapper class for <see cref="ServerConsole"/>.
     /// </summary>
     public static class Console
     {
         /// <summary>
-        /// Gets the server console.
+        /// Gets the ServerConsole instance.
         /// </summary>
-        public static ServerConsole ConsoleBase => ServerConsole.Instance;
+        public static ServerConsole Base => ServerConsole.Instance;
 
         /// <summary>
         /// Print a info message.

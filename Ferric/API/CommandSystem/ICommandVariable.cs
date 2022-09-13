@@ -5,6 +5,7 @@ namespace Ferric.API.CommandSystem
     /// <summary>
     /// Defines a console variable.
     /// </summary>
+    [Obsolete("Not implemented", true)]
     public interface ICommandVariable
     {
         /// <summary>

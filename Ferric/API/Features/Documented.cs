@@ -15,5 +15,8 @@ namespace Ferric.API.Features
         /// The values value.
         /// </summary>
         public T Value;
+
+        /// <inheritdoc />
+        public override string ToString() => Value.ToString();
     }
 }
