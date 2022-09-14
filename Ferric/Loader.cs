@@ -42,6 +42,15 @@ namespace Ferric
         /// </summary>
         public static Version Version = Assembly.GetExecutingAssembly().GetName().Version;
 
+        private const string SplashText = @"
+            ______             _      
+            |  ___|           (_)     
+            | |_ ___ _ __ _ __ _  ___ 
+            |  _/ _ \ '__| '__| |/ __|
+            | ||  __/ |  | |  | | (__ 
+            \_| \___|_|  |_|  |_|\___|
+        ";
+
         /// <summary>
         /// An array of required dependencies.
         /// </summary>
@@ -167,7 +176,7 @@ namespace Ferric
                 }
             }
 
-            Console.Info("Ferric Initialization complete!");
+            Console.Info($"Welcome to {SplashText}");
         }
 
         /// <summary>
