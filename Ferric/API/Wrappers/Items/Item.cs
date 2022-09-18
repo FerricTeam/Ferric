@@ -5,6 +5,8 @@ namespace Ferric.API.Wrappers.Items
     /// </summary>
     public class Item
     {
+        private global::Item baseItem;
+
         /// <summary>
         /// Gets the item instance.
         /// </summary>
@@ -19,7 +21,5 @@ namespace Ferric.API.Wrappers.Items
         /// Gets the <see cref="Item"/>s owner.
         /// </summary>
         public BasePlayer Owner => baseItem.GetOwnerPlayer();
-
-        private global::Item baseItem;
     }
 }
