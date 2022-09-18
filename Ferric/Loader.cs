@@ -28,6 +28,11 @@ namespace Ferric
         public static readonly string FerricDir = Directory.GetParent(Assembly.GetExecutingAssembly().Location)!.FullName;
 
         /// <summary>
+        /// The ferric version of the assembly.
+        /// </summary>
+        public static readonly Version Version = Assembly.GetExecutingAssembly().GetName().Version;
+
+        /// <summary>
         /// A list of all plugins.
         /// </summary>
         public static List<IPlugin> Plugins = new();
@@ -36,11 +41,6 @@ namespace Ferric
         /// A dictionary containing assemblies and their plugin instances.
         /// </summary>
         public static Dictionary<Assembly, IPlugin> PluginAssemblies = new();
-
-        /// <summary>
-        /// The ferric version of the assembly.
-        /// </summary>
-        public static Version Version = Assembly.GetExecutingAssembly().GetName().Version;
 
         private const string SplashText = @"
             ______             _      
