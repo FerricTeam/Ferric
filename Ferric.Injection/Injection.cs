@@ -10,7 +10,7 @@
     /// </summary>
     public class Injection
     {
-        private static bool isLoaded = false;
+        private static bool isLoaded;
 
         /// <summary>
         /// The entrypoint method.
