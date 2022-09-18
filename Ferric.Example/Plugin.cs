@@ -34,7 +34,7 @@ namespace Example
             ServerHandler.ServerOnMessage += ServerOnMessage;
 
             // Dont do this: this will not be disabled when the plugin is disabled.
-            PlayerHandler.PlayerJoined += args => Console.Debug($"joined: {args.Player.UserId}, {args.Player.IsAdmin}");
+            // PlayerHandler.PlayerJoined += args => Console.Debug($"joined: {args.Player.UserId}, {args.Player.IsAdmin}");
         }
 
         /// <inheritdoc />
