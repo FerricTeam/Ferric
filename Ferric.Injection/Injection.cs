@@ -18,7 +18,7 @@
         public static void Start()
         {
             string ferricDir = Path.Combine(
-                Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.Parent?.Parent?.FullName,
+                Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.Parent?.Parent?.FullName ?? string.Empty,
                 "Ferric");
 
             if (isLoaded)
