@@ -68,6 +68,7 @@ jobs:
     - name: debug
       shell: pwsh
       run: |
+          where steamcmd
           echo ${{ env.RUST_INSTALL_LOCATION }}
           cd Steam
           ls
