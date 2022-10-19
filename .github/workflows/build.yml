@@ -57,7 +57,7 @@ jobs:
     - name: debug2
       shell: cmd
       run: |
-          echo where steamcmd
+         where steamcmd
     - name: Download APublicizer
       uses: carlosperate/download-file-action@v1.1.1
       with:
