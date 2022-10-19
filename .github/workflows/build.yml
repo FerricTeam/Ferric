@@ -81,7 +81,7 @@ jobs:
         FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
       shell: pwsh
       run: |
-        msbuild.exe Ferric.sln /t:Build /p:Configuration=Release;Platform="Any CPU"
+        msbuild.exe Ferric.sln /p:Configuration="Release" /p:Platform="Any CPU"
     - name: Upload artifacts
       uses: actions/upload-artifact@v3.1.0
       with:
