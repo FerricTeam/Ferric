@@ -13,7 +13,7 @@ on:
 
 env:
   PUBLICIZER: https://github.com/iRebbok/APublicizer/releases/download/1.0.3/native-win-x64-release.tar.gz
-  RUST_INSTALL_LOCATION: /Steam/steamapps/common/RustDedicated
+  RUST_INSTALL_LOCATION: C:\hostedtoolcache\windows\steamcmd\latest\i386\steamcmd.exe/steamapps/common/RustDedicated
 
 jobs:
   build:
@@ -54,10 +54,6 @@ jobs:
     #  shell: pwsh
     #  run: |
     #    .\7zr.exe e -i!x64/7za.exe 7zextra.7z
-    - name: debug2
-      shell: cmd
-      run: |
-         where steamcmd
     - name: Download APublicizer
       uses: carlosperate/download-file-action@v1.1.1
       with:
@@ -71,10 +67,6 @@ jobs:
       shell: pwsh
       run: |
         tar -xzvf release.tar.gz
-    - name: debug
-      shell: pwsh
-      run: |
-          echo where steamcmd
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
