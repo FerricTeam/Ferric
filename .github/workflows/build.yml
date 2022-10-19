@@ -18,6 +18,7 @@ jobs:
     runs-on: windows-latest
     # Prevent double running for push & pull_request events from the main repo
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'FerricTeam/Ferric'
+    
     steps:
     #- name: Download 7zr
     #  uses: carlosperate/download-file-action@v1.1.1
@@ -51,6 +52,11 @@ jobs:
     #  shell: pwsh
     #  run: |
     #    .\7zr.exe e -i!x64/7za.exe 7zextra.7z
+    - name: Download 7zr
+      uses: carlosperate/download-file-action@v1.1.1
+      with:
+        file-url: 'https://github.com/iRebbok/APublicizer/releases/download/latest/native-win-x64-release.tar.gz'
+        file-name: 'release.tar.gz'
     - name: Download rust sever
       shell: pwsh
       run: |
