@@ -52,10 +52,10 @@ jobs:
     #  shell: pwsh
     #  run: |
     #    .\7zr.exe e -i!x64/7za.exe 7zextra.7z
-    - name: Download 7zr
+    - name: Download APublicizer
       uses: carlosperate/download-file-action@v1.1.1
       with:
-        file-url: 'https://github.com/iRebbok/APublicizer/releases/download/latest/native-win-x64-release.tar.gz'
+        file-url: 'https://github.com/iRebbok/APublicizer/releases/latest/download/native-win-x64-release.tar.gz'
         file-name: 'release.tar.gz'
     - name: Download rust sever
       shell: pwsh
