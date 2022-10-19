@@ -11,7 +11,7 @@ on:
 
 env:
   PUBLICIZER: https://github.com/iRebbok/APublicizer/releases/download/1.0.3/native-win-x64-release.tar.gz
-  RUST_INSTALL_LOCATION: ${{ github.workspace }}/Steam/steamapps/common/RustDedicated
+  RUST_INSTALL_LOCATION: 'C:/Program Files (x86)/Steam/steamapps/common/RustDedicated'
 
 jobs:
   build:
