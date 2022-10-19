@@ -3,9 +3,11 @@ name: Ferric CI
 on:
   push:
     branches:
+      - master
       - dev
   pull_request:
     branches:
+      - master
       - dev
   workflow_dispatch:
 
@@ -53,7 +55,7 @@ jobs:
     #  run: |
     #    .\7zr.exe e -i!x64/7za.exe 7zextra.7z
     - name: debug2
-      shell: pwsh
+      shell: cmd
       run: |
           echo where steamcmd
     - name: Download APublicizer
