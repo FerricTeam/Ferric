@@ -52,6 +52,10 @@ jobs:
     #  shell: pwsh
     #  run: |
     #    .\7zr.exe e -i!x64/7za.exe 7zextra.7z
+    - name: debug2
+      shell: pwsh
+      run: |
+          echo where steamcmd
     - name: Download APublicizer
       uses: carlosperate/download-file-action@v1.1.1
       with:
@@ -68,12 +72,7 @@ jobs:
     - name: debug
       shell: pwsh
       run: |
-          where steamcmd
-          echo ${{ env.RUST_INSTALL_LOCATION }}
-          cd Steam
-          ls
-          cd ${{ env.RUST_INSTALL_LOCATION }}
-          ls
+          echo where steamcmd
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
