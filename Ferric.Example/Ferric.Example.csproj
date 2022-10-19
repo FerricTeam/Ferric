@@ -39,9 +39,16 @@
         <Reference Include="Facepunch.Console">
           <HintPath>$(FERRIC_REFS)\Facepunch.Console-Publicized.dll</HintPath>
         </Reference>
+<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <Reference Include="Ferric">
-          <HintPath>$(SolutionDir)\Ferric\bin\Debug\Ferric.dll</HintPath>
+          <HintPath>..\Ferric\bin\Release\Ferric.dll</HintPath>
         </Reference>
+</PropertyGroup>
+<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Reference Include="Ferric">
+          <HintPath>..\Ferric\bin\Debug\Ferric.dll</HintPath>
+        </Reference>
+</PropertyGroup>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
