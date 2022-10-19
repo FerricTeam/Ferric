@@ -54,7 +54,7 @@ jobs:
     - name: Download rust sever
       shell: pwsh
       run: |
-        steamcmd +login anonymous +app_update 1337 validate +quit
+        steamcmd +login anonymous +app_update 258550 validate +quit
     - name: Extract APublicizer
       shell: pwsh
       run: |
