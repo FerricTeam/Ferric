@@ -43,6 +43,8 @@ jobs:
         vs-prerelease: false # optional
         # The preferred processor architecture of MSBuild. Can be either "x86" or "x64". "x64" is only available from Visual Studio version 17.0 and later.
         msbuild-architecture: x64
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
     - name: Setup SteamCMD
       # You may pin to the exact commit or the version.
       # uses: CyberAndrii/setup-steamcmd@1a23c36fdf39218db07a406b1fda2775eb0636c3
@@ -72,6 +74,8 @@ jobs:
       run: |
         .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Assembly-CSharp.dll
         .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Facepunch.Console.dll
+    - name: Restore Packages
+      run: nuget restore Ferric.sln
     - name: Build
       env:
         FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
