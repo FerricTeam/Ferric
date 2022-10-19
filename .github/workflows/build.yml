@@ -70,10 +70,11 @@ jobs:
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
-        .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}/RustDedicated_Data/Managed
+        Get-ChildItem C:\hostedtoolcache\windows -Recurse -Directory
+        .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
     - name: Build
       env:
-        FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}/RustDedicated_Data/Managed
+        FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
       shell: pwsh
       run: |
         msbuild.exe Ferric.sln /t:Build/p:Configuration=Release;Platform="Any CPU
