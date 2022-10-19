@@ -60,7 +60,7 @@ jobs:
     - name: Download rust sever
       shell: pwsh
       run: |
-        steamcmd +force_install_dir ${{ env.RUST_INSTALL_LOCATION }} +login anonymous +app_update 258550 validate +quit
+        steamcmd +force_install_dir "${{ env.RUST_INSTALL_LOCATION }}" +login anonymous +app_update 258550 validate +quit
     - name: Extract APublicizer
       shell: pwsh
       run: |
