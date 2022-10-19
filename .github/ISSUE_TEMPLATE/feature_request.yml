@@ -1,0 +1,37 @@
+name: Feature request
+description: Submit a feature request
+title: "[Feature request]: "
+labels: ["enhancement"]
+assignees:
+  - moddedmcplayer
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for filling out this feature request!
+  - type: textarea
+    id: describefeature
+    attributes:
+      label: Describe the feature you would like to added
+      description: Explain
+      placeholder: Make all players have infinite health
+      value: "Bug"
+    validations:
+      required: true
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Will this break existing plugins
+      description: Will this change any feature that currently exists (ex. rename ply.Health to ply.Hitpoints)?
+      options:
+        - label: It will break something
+          required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to have read the pinned issue
+      options:
+        - label: I have read the pinned issue
+          required: true
+
