@@ -13,7 +13,7 @@ on:
 
 env:
   PUBLICIZER: https://github.com/iRebbok/APublicizer/releases/download/1.0.3/native-win-x64-release.tar.gz
-  RUST_INSTALL_LOCATION: C:\hostedtoolcache\windows\steamcmd\latest\i386/steamapps/common/RustDedicated
+  RUST_INSTALL_LOCATION: C:\hostedtoolcache\windows\steamcmd\steamapps\common\RustDedicated
 
 jobs:
   build:
