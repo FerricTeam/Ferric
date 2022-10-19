@@ -39,7 +39,10 @@
         <Reference Include="Facepunch.Console">
           <HintPath>$(FERRIC_REFS)\Facepunch.Console-Publicized.dll</HintPath>
         </Reference>
-        <Reference Include="Ferric">
+        <Reference Include="Ferric" Condition=" '$(Configuration)' == 'Release' ">
+          <HintPath>..\Ferric\bin\Release\Ferric.dll</HintPath>
+        </Reference>
+        <Reference Include="Ferric" Condition=" '$(Configuration)' == 'Debug' ">
           <HintPath>..\Ferric\bin\Debug\Ferric.dll</HintPath>
         </Reference>
         <Reference Include="System" />
