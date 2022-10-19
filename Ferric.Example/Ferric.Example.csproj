@@ -40,7 +40,7 @@
           <HintPath>$(FERRIC_REFS)\Facepunch.Console-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Ferric">
-          <HintPath>..\Ferric\bin\Debug\Ferric.dll</HintPath>
+          <HintPath>$(SolutionDir)\Ferric\bin\Debug\Ferric.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
