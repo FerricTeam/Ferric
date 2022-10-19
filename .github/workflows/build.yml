@@ -70,7 +70,6 @@ jobs:
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
-        Get-ChildItem C:\hostedtoolcache\windows -Recurse -Directory
         .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
     - name: Build
       env:
