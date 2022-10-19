@@ -15,7 +15,7 @@ body:
       label: Describe the feature you would like to added
       description: Explain
       placeholder: Make all players have infinite health
-      value: "Bug"
+      value: "Text"
     validations:
       required: true
   - type: checkboxes
