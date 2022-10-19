@@ -68,7 +68,9 @@ jobs:
     - name: debug
       shell: pwsh
       run: |
-          echo {{ env.RUST_INSTALL_LOCATION }}
+          echo ${{ env.RUST_INSTALL_LOCATION }}
+          cd ${{ env.RUST_INSTALL_LOCATION }}
+          ls
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
