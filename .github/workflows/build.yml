@@ -11,7 +11,7 @@ on:
 
 env:
   PUBLICIZER: https://github.com/iRebbok/APublicizer/releases/download/1.0.3/native-win-x64-release.tar.gz
-  RUST_INSTALL_LOCATION: $home/Steam/common/RustDedicated
+  RUST_INSTALL_LOCATION: ${{ github.env }}/rust
 
 jobs:
   build:
@@ -60,11 +60,15 @@ jobs:
     - name: Download rust sever
       shell: pwsh
       run: |
-        steamcmd +login anonymous +app_update 258550 validate +quit
+        steamcmd +force_install_dir ${{ env.RUST_INSTALL_LOCATION }} +login anonymous +app_update 258550 validate +quit
     - name: Extract APublicizer
       shell: pwsh
       run: |
         tar -xzvf release.tar.gz
+    - name: debug
+      shell: pwsh
+      run: |
+          echo {{ env.RUST_INSTALL_LOCATION }}
     - name: Publicize AssemblyCSharp
       shell: pwsh
       run: |
