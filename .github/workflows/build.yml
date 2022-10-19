@@ -67,10 +67,11 @@ jobs:
       shell: pwsh
       run: |
         tar -xzvf release.tar.gz
-    - name: Publicize AssemblyCSharp
+    - name: Publicize Assemblies
       shell: pwsh
       run: |
         .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Assembly-CSharp.dll
+        .\APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Facepunch.Console.dll
     - name: Build
       env:
         FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
