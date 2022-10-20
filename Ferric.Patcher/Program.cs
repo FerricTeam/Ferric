@@ -6,9 +6,7 @@
 namespace Ferric.Patcher
 {
     using System;
-    using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using dnlib.DotNet;
     using dnlib.DotNet.Emit;

@@ -3,7 +3,6 @@
 namespace Ferric
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -14,7 +13,6 @@ namespace Ferric
     using Ferric.API.Wrappers;
     using Ferric.Patches;
     using JetBrains.Annotations;
-    using Newtonsoft.Json;
     using Console = Ferric.API.Wrappers.Console;
 
     /// <summary>

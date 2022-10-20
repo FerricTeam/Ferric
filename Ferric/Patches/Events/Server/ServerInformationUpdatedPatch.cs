@@ -3,7 +3,6 @@
 
 namespace Ferric.Patches.Events.Server
 {
-    using Ferric.API.Wrappers;
     using Harmony;
     using Steamworks;
 
