@@ -71,7 +71,7 @@ jobs:
         cache-name: cache-rust-windows
       with:
         # A list of files, directories, and wildcard patterns to cache and restore
-        path: C:\hostedtoolcache\windows\steamcmd\latest\i386\steamapps\common
+        path: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\
         # An explicit key for restoring and saving the cache
         key: "${{ env.buildid }}-windows"
     - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
