@@ -1,4 +1,4 @@
-name: Ferric CI
+name: Ferric CI Windows
 
 on:
   push:
