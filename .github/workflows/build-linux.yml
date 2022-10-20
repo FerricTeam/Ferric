@@ -47,6 +47,10 @@ jobs:
       shell: bash
       run: |
         steamcmd +login anonymous +app_update 258550 validate +quit
+    - name: debug
+      shell: bash
+      run: |
+        ls -lF | grep \/$
     - name: Extract APublicizer
       shell: bash
       run: |
