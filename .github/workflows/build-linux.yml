@@ -56,6 +56,10 @@ jobs:
         path: /home/runner/Steam/steamapps/common/
         # An explicit key for restoring and saving the cache
         key: "${{ env.buildid }}-linux"
+    - name: debug
+      shell: bash
+      run: |
+        echo ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
     - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
       name: Download Rust Dedicated Server
       shell: bash
