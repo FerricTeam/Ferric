@@ -54,8 +54,8 @@ jobs:
     - name: Publicize Assemblies
       shell: bash
       run: |
-        APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Assembly-CSharp.dll
-        APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Facepunch.Console.dll
+        ./APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Assembly-CSharp.dll
+        ./APublicizer ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed\Facepunch.Console.dll
     - name: Restore Packages
       run: nuget restore Ferric.sln
     - name: Build
@@ -63,7 +63,7 @@ jobs:
         FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
       shell: bash
       run: |
-        xbuilsd Ferric.sln /p:Configuration="Release" /p:Platform="Any CPU"
+        xbuild Ferric.sln /p:Configuration="Release" /p:Platform="Any CPU"
     - name: Upload artifacts
       uses: actions/upload-artifact@v3.1.0
       with:
