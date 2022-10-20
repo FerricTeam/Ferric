@@ -47,10 +47,6 @@ jobs:
       shell: bash
       run: |
         steamcmd +login anonymous +app_update 258550 validate +quit
-    - name: debug
-      shell: bash
-      run: |
-        ls -lF | grep \/$
     - name: Extract APublicizer
       shell: bash
       run: |
@@ -64,7 +60,7 @@ jobs:
       run: nuget restore Ferric.sln
     - name: Build
       env:
-        FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}\RustDedicated_Data\Managed
+        FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION }}/RustDedicated_Data/Managed
       shell: bash
       run: |
         xbuild Ferric.sln /p:Configuration="Release" /p:Platform="Any CPU"
