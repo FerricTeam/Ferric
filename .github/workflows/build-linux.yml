@@ -43,7 +43,22 @@ jobs:
       with:
         file-url: 'https://github.com/iRebbok/APublicizer/releases/latest/download/native-linux-x64-release.tar.gz'
         file-name: 'release.tar.gz'
-    - name: Download Rust Dedicated Server
+    - name: Get latest buildid
+      shell: bash
+      run: |
+        echo "buildid=$(curl "https://api.steamcmd.net/v1/info/258550" | tac | tac | jq '.data."258550".depots.branches.public.buildid' | sed 's/"//g')" >> $GITHUB_ENV
+    - name: Cache Rust Dedicated Server
+      id: cache-rust
+      uses: actions/cache@v3.0.11
+      env:
+        cache-name: cache-rust-linux
+      with:
+        # A list of files, directories, and wildcard patterns to cache and restore
+        path: /home/runner/Steam/steamapps/common/
+        # An explicit key for restoring and saving the cache
+        key: "${{ env.buildid }}-linux"
+    - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
+      name: Download Rust Dedicated Server
       shell: bash
       run: |
         steamcmd +login anonymous +app_update 258550 validate +quit
