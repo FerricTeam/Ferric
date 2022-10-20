@@ -33,7 +33,7 @@ jobs:
     - name: Download xbuild
       shell: bash
       run: |
-        apt-get install nuget mono-devel mono-xbuild
+        sudo apt-get install nuget mono-devel mono-xbuild
     - name: Download APublicizer
       uses: carlosperate/download-file-action@v1.1.1
       with:
