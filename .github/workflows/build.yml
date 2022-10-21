@@ -186,3 +186,46 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: Build Results Windows
+      - name: Extract artefacts
+        shell: pwsh
+        run: |
+          Expand-Archive -LiteralPath 'Build Results Windows.zip' -DestinationPath 'artefacts'
+      - name: Get latest buildid
+        shell: pwsh
+        run: |
+          echo "buildid=$(((Invoke-WebRequest -Uri 'https://api.steamcmd.net/v1/info/258550' -UseBasicParsing).Content | ConvertFrom-Json).data."258550".depots.branches.public.buildid)" >> $env:GITHUB_ENV
+      - name: Cache Rust Dedicated Server
+        id: cache-rust
+        uses: actions/cache@v3.0.11
+        env:
+          cache-name: cache-rust-windows
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ${{ env.RUST_INSTALL_LOCATION_WINDOWS }}\RustDedicated_Data\Managed\
+          # An explicit key for restoring and saving the cache
+          key: "${{ env.buildid }}-windows"
+      - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
+        name: Setup SteamCMD
+        # You may pin to the exact commit or the version.
+        # uses: CyberAndrii/setup-steamcmd@1a23c36fdf39218db07a406b1fda2775eb0636c3
+        uses: CyberAndrii/setup-steamcmd@v1.1.4
+      - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
+        name: Download Rust Dedicated Server
+        shell: pwsh
+        run: |
+          steamcmd +login anonymous +app_update 258550 validate +quit
+      - name: Copy Assembly-CSharp.dll and Ferric.Injection.dll
+        shell: pwsh
+        run: |
+          copy ${{ env.RUST_INSTALL_LOCATION_WINDOWS }}\RustDedicated_Data\Managed\Assembly-CSharp.dll artefacts\Ferric.Patcher\bin\Release\
+            copy artefacts\Ferric.Injection\bin\Release\Ferric.Injection.dll artefacts\Ferric.Patcher\bin\Release\
+      - name: Run Patcher
+        shell: pwsh
+        run: |
+          cd artefacts\Ferric.Patcher\bin\Release; .\Ferric.Patcher.exe
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Build Results Windows
+          path: |
+            artefacts\Ferric.Patcher\bin\Release\Assembly-CSharp-Ferric.dll
