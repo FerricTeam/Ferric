@@ -191,7 +191,7 @@ jobs:
       - name: debug
         shell: pwsh
         run: |
-          cd C:\AMD; ls -r
+          cd C:\artefacts; ls -r
       - name: Extract artefacts
         shell: pwsh
         run: |
