@@ -186,6 +186,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: Build Results Windows
+          path: "Build Results Windows.zip"
       - name: Extract artefacts
         shell: pwsh
         run: |
