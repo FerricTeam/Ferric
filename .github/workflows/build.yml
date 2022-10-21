@@ -223,6 +223,6 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: Build Results Windows
+          name: Patched Assembly
           path: |
             C:\artefacts\Ferric.Patcher\bin\Release\Assembly-CSharp-Ferric.dll
