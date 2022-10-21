@@ -186,7 +186,12 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: Build Results Windows
-          path: "Build Results Windows.zip"
+          path: ${{ github.env }}
+      # TODO: remove
+      - name: debug
+        shell: pwsh
+        run: |
+          dir /S
       - name: Extract artefacts
         shell: pwsh
         run: |
