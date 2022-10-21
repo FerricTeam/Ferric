@@ -61,7 +61,7 @@
         <Reference Include="Facepunch.SteamNetworking">
           <HintPath>$(FERRIC_REFS)\Facepunch.SteamNetworking.dll</HintPath>
         </Reference>
-        <Reference Include="Facepunch.Steamworks.Win64" Condition=" '$(GITHUB_WORKFLOW)' != 'Ferric CI Linux' ">
+        <Reference Include="Facepunch.Steamworks.Win64" Condition=" '$(GITHUB_ACTION)' != 'Ferric CI Linux' ">
           <HintPath>$(FERRIC_REFS)\Facepunch.Steamworks.Win64.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.System">

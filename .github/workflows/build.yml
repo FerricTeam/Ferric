@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     # Prevent double running for push & pull_request events from the main repo
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'FerricTeam/Ferric'
-    
     steps:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
@@ -74,6 +73,7 @@ jobs:
       - name: Restore Packages
         run: nuget restore Ferric.sln
       - name: Build
+        id: build
         env:
           FERRIC_REFS: ${{ env.RUST_INSTALL_LOCATION_LINUX }}/RustDedicated_Data/Managed
         shell: bash
@@ -82,7 +82,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: Build Results
+          name: Build Results Linux
           path: |
             Ferric/bin/Release
             Ferric.Example/bin/Release
@@ -132,7 +132,7 @@ jobs:
         with:
           file-url: 'https://github.com/iRebbok/APublicizer/releases/latest/download/native-win-x64-release.tar.gz'
           file-name: 'release.tar.gz'
-      - name: Get latest app info
+      - name: Get latest buildid
         shell: pwsh
         run: |
           echo "buildid=$(((Invoke-WebRequest -Uri 'https://api.steamcmd.net/v1/info/258550' -UseBasicParsing).Content | ConvertFrom-Json).data."258550".depots.branches.public.buildid)" >> $env:GITHUB_ENV
@@ -171,9 +171,18 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: Build Results
+          name: Build Results Windows
           path: |
             Ferric/bin/Release
             Ferric.Example/bin/Release
             Ferric.Injection/bin/Release
             Ferric.Patcher/bin/Release
+  patch-rust:
+    runs-on: windows-latest
+    needs: [build-linux, build-win]
+    # Prevent double running for push & pull_request events from the main repo
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'FerricTeam/Ferric'
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: Build Results Windows
