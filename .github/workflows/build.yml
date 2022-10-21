@@ -187,15 +187,6 @@ jobs:
         with:
           name: Build Results Windows
           path: C:\artefacts
-      # TODO: remove
-      - name: debug
-        shell: pwsh
-        run: |
-          cd C:\artefacts; ls -r
-      - name: Extract artefacts
-        shell: pwsh
-        run: |
-          Expand-Archive -LiteralPath 'Build Results Windows.zip' -DestinationPath 'C:\artefacts'
       - name: Get latest buildid
         shell: pwsh
         run: |
