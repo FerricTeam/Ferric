@@ -187,10 +187,6 @@ jobs:
         with:
           name: Build Results Windows
           path: C:\artefacts
-      - name: Make directory
-        shell: pwsh
-        run: |
-          mkdir C:\artefacts
       # TODO: remove
       - name: debug
         shell: pwsh
