@@ -215,11 +215,11 @@ jobs:
         shell: pwsh
         run: |
           copy ${{ env.RUST_INSTALL_LOCATION_WINDOWS }}\RustDedicated_Data\Managed\Assembly-CSharp.dll C:\artefacts\Ferric.Patcher\bin\Release\
-            copy C:\artefacts\Ferric.Injection\bin\Release\Ferric.Injection.dll artefacts\Ferric.Patcher\bin\Release\
+            copy C:\artefacts\Ferric.Injection\bin\Release\Ferric.Injection.dll C:\artefacts\Ferric.Patcher\bin\Release\
       - name: Run Patcher
         shell: pwsh
         run: |
-          cd artefacts\Ferric.Patcher\bin\Release; .\Ferric.Patcher.exe
+          cd C:\artefacts\Ferric.Patcher\bin\Release; .\Ferric.Patcher.exe
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
