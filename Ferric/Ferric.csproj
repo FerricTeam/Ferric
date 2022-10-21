@@ -61,7 +61,7 @@
         <Reference Include="Facepunch.SteamNetworking">
           <HintPath>$(FERRIC_REFS)\Facepunch.SteamNetworking.dll</HintPath>
         </Reference>
-        <Reference Include="Facepunch.Steamworks.Win64" Condition=" '$(GITHUB_ACTION)' != 'Ferric CI Linux' ">
+        <Reference Include="Facepunch.Steamworks.Win64" Condition=" '$(GITHUB_ACTION)' != 'build' ">
           <HintPath>$(FERRIC_REFS)\Facepunch.Steamworks.Win64.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.System">
@@ -178,7 +178,7 @@
         <Version>1.2.0.435</Version>
       </PackageReference>
     </ItemGroup>
-    <ItemGroup Condition=" '$(GITHUB_WORKFLOW)' == 'Ferric CI Linux' ">
+    <ItemGroup Condition=" '$(GITHUB_ACTION)' == 'build' ">
       <PackageReference Include="Facepunch.Steamworks">
           <Version>2.3.3</Version>
       </PackageReference>
