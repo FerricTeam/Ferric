@@ -191,7 +191,7 @@ jobs:
       - name: debug
         shell: pwsh
         run: |
-          C:\artefacts; dir /S
+          cd C:\artefacts; dir /S
       - name: Extract artefacts
         shell: pwsh
         run: |
