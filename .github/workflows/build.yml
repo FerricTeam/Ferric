@@ -186,16 +186,20 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: Build Results Windows
-          path: ${{ github.env }}
+          path: C:\artefacts
+      - name: Make directory
+        shell: pwsh
+        run: |
+          mkdir C:\artefacts
       # TODO: remove
       - name: debug
         shell: pwsh
         run: |
-          dir /S
+          C:\artefacts; dir /S
       - name: Extract artefacts
         shell: pwsh
         run: |
-          Expand-Archive -LiteralPath 'Build Results Windows.zip' -DestinationPath 'artefacts'
+          Expand-Archive -LiteralPath 'Build Results Windows.zip' -DestinationPath 'C:\artefacts'
       - name: Get latest buildid
         shell: pwsh
         run: |
@@ -223,8 +227,8 @@ jobs:
       - name: Copy Assembly-CSharp.dll and Ferric.Injection.dll
         shell: pwsh
         run: |
-          copy ${{ env.RUST_INSTALL_LOCATION_WINDOWS }}\RustDedicated_Data\Managed\Assembly-CSharp.dll artefacts\Ferric.Patcher\bin\Release\
-            copy artefacts\Ferric.Injection\bin\Release\Ferric.Injection.dll artefacts\Ferric.Patcher\bin\Release\
+          copy ${{ env.RUST_INSTALL_LOCATION_WINDOWS }}\RustDedicated_Data\Managed\Assembly-CSharp.dll C:\artefacts\Ferric.Patcher\bin\Release\
+            copy C:\artefacts\Ferric.Injection\bin\Release\Ferric.Injection.dll artefacts\Ferric.Patcher\bin\Release\
       - name: Run Patcher
         shell: pwsh
         run: |
@@ -234,4 +238,4 @@ jobs:
         with:
           name: Build Results Windows
           path: |
-            artefacts\Ferric.Patcher\bin\Release\Assembly-CSharp-Ferric.dll
+            C:\artefacts\Ferric.Patcher\bin\Release\Assembly-CSharp-Ferric.dll
