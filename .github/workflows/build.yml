@@ -53,7 +53,7 @@ jobs:
           cache-name: cache-rust-linux
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
-          path: ${{ env._LINUX }}/RustDedicated_Data/Managed/
+          path: ${{ env.RUST_INSTALL_LOCATION_LINUX }}/RustDedicated_Data/Managed/
           # An explicit key for restoring and saving the cache
           key: "${{ env.buildid }}-linux"
       - if: ${{ steps.cache-rust.outputs.cache-hit != 'true' }}
