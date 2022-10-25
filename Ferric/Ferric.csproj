@@ -130,7 +130,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="API\CommandSystem\Command.cs" />
+        <Compile Include="API\CommandSystem\CommandAttribute.cs" />
         <Compile Include="API\CommandSystem\CommandSystem.cs" />
         <Compile Include="API\CommandSystem\Commands\DebugCommand.cs" />
         <Compile Include="API\CommandSystem\CommandType.cs" />
@@ -141,6 +141,7 @@
         <Compile Include="API\EventArgs\Interfaces\IPlayerEvent.cs" />
         <Compile Include="API\EventArgs\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="API\EventArgs\Server\SendingServerCommandEventArgs.cs" />
+        <Compile Include="API\EventArgs\Server\ServerCreatingItemEventArgs.cs" />
         <Compile Include="API\EventArgs\Server\ServerOnMessageEventArgs.cs" />
         <Compile Include="API\Features\Config.cs" />
         <Compile Include="API\Features\Documented.cs" />
@@ -157,6 +158,7 @@
         <Compile Include="Loader.cs" />
         <Compile Include="Patches\Events\Player\PlayerJoinedPatch.cs" />
         <Compile Include="Patches\Events\Server\ConsoleSystemInternalPatch.cs" />
+        <Compile Include="Patches\Events\Server\ItemCreatePatch.cs" />
         <Compile Include="Patches\Events\Server\OnMessagePatch.cs" />
         <Compile Include="Patches\Events\Server\ServerInformationUpdatedPatch.cs" />
         <Compile Include="Patches\Events\Server\ServerShutdownPatch.cs" />

@@ -10,6 +10,11 @@ namespace Ferric.EventHandlers
     public static class ServerHandler
     {
         /// <summary>
+        /// Invoked when an <see cref="global::Item"/> is created.
+        /// </summary>
+        public static event Action<ServerCreatingItemEventArgs> ServerCreatingItem;
+
+        /// <summary>
         /// Invoked when a <see cref="Console"/> command is sent.
         /// </summary>
         public static event Action<SendingServerCommandEventArgs> SendingServerCommand;
@@ -18,6 +23,22 @@ namespace Ferric.EventHandlers
         /// Invoked when a <see cref="Console"/> message is sent.
         /// </summary>
         public static event Action<ServerOnMessageEventArgs> ServerOnMessage;
+
+        /// <summary>
+        /// Called when an <see cref="global::Item"/> is created.
+        /// </summary>
+        /// <param name="args">The event arguments.</param>
+        internal static void OnServerCreatingItem(ServerCreatingItemEventArgs args)
+        {
+            try
+            {
+                ServerCreatingItem.InvokeSafely(args);
+            }
+            catch (Exception e)
+            {
+                Console.Error(e);
+            }
+        }
 
         /// <summary>
         /// Called when a <see cref="Console"/> command is sent.

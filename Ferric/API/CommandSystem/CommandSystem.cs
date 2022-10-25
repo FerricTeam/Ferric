@@ -75,7 +75,7 @@ namespace Ferric.API.CommandSystem
             {
                 if (!type.GetInterfaces().Contains(typeof(ICommand)))
                     continue;
-                if (type.GetCustomAttributes(typeof(Command)).Count() != 0)
+                if (type.GetCustomAttributes(typeof(CommandAttribute)).Count() != 0)
                 {
                     commands.Add((ICommand)Activator.CreateInstance(type));
                 }
@@ -83,9 +83,9 @@ namespace Ferric.API.CommandSystem
 
             foreach (var cmd in commands)
             {
-                foreach (var attr in cmd.GetType().GetCustomAttributes(typeof(Command)))
+                foreach (var attr in cmd.GetType().GetCustomAttributes(typeof(CommandAttribute)))
                 {
-                    if (attr is Command cmdAttr)
+                    if (attr is CommandAttribute cmdAttr)
                     {
                         bool client = cmdAttr.Type.HasFlag(CommandType.Client);
                         var converted = new ConsoleSystem.Command()
