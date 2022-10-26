@@ -1,4 +1,5 @@
 #pragma warning disable SA1313 // Parameter names should begin with lower-case letter
+#pragma warning disable CS1591 // Elements should be documented
 #pragma warning disable SA1600 // Elements should be documented
 
 namespace Ferric.Patches.Events.Server
@@ -8,7 +9,7 @@ namespace Ferric.Patches.Events.Server
     using Harmony;
 
     /// <summary>
-    /// Patches <see cref="ItemManager.Create"/>
+    /// Patches <see cref="ItemManager.Create"/>.
     /// </summary>
     [HarmonyPatch(typeof(ItemManager), nameof(ItemManager.Create))]
     public class ItemCreatePatch

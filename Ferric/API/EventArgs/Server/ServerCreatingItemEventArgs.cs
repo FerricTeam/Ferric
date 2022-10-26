@@ -8,7 +8,7 @@ namespace Ferric.API.EventArgs.Server
     public class ServerCreatingItemEventArgs : IDenyable, IEventArg
     {
         /// <summary>
-        /// Gets or sets a value indicating whether or not the item will be created
+        /// Gets or sets a value indicating whether or not the item will be created.
         /// </summary>
         public bool Allowed { get; set; }
 
@@ -30,6 +30,9 @@ namespace Ferric.API.EventArgs.Server
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerCreatingItemEventArgs"/> class.
         /// </summary>
+        /// <param name="definition">The ItemDefinition.</param>
+        /// <param name="amount">The amount.</param>
+        /// <param name="skin">The skin id.</param>
         public ServerCreatingItemEventArgs(ItemDefinition definition, int amount, ulong skin)
         {
             Allowed = true;

@@ -14,7 +14,7 @@ namespace Ferric.API.CommandSystem
         public readonly CommandType Type;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Command"/> class via its type.
+        /// Initializes a new instance of the <see cref="CommandAttribute"/> class via its type.
         /// </summary>
         /// <param name="type">The command type.</param>
         public CommandAttribute(CommandType type)
