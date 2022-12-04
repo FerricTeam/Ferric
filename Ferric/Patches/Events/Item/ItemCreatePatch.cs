@@ -2,7 +2,7 @@
 #pragma warning disable CS1591 // Elements should be documented
 #pragma warning disable SA1600 // Elements should be documented
 
-namespace Ferric.Patches.Events.Server
+namespace Ferric.Patches.Events.Item
 {
     using Ferric.API.EventArgs.Server;
     using Ferric.EventHandlers;

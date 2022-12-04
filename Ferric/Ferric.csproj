@@ -156,9 +156,9 @@
         <Compile Include="EventHandlers\PlayerHandler.cs" />
         <Compile Include="EventHandlers\ServerHandler.cs" />
         <Compile Include="Loader.cs" />
+        <Compile Include="Patches\Events\Item\ItemCreatePatch.cs" />
         <Compile Include="Patches\Events\Player\PlayerJoinedPatch.cs" />
         <Compile Include="Patches\Events\Server\ConsoleSystemInternalPatch.cs" />
-        <Compile Include="Patches\Events\Server\ItemCreatePatch.cs" />
         <Compile Include="Patches\Events\Server\OnMessagePatch.cs" />
         <Compile Include="Patches\Events\Server\ServerInformationUpdatedPatch.cs" />
         <Compile Include="Patches\Events\Server\ServerShutdownPatch.cs" />
