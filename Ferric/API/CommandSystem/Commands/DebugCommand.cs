@@ -37,7 +37,7 @@ namespace Ferric.API.CommandSystem.Commands
             {
                 foreach (var plugin in Loader.Plugins)
                 {
-                    Console.Debug($"{plugin.Name} by {plugin.Author} v{plugin.Version} ID: {plugin.ID}");
+                    Console.Debug($"    {plugin.Name} by {plugin.Author} v{plugin.Version} (ID: {plugin.ID})");
                 }
             }
         }
