@@ -13,12 +13,12 @@ namespace Ferric.API.Wrappers
         public static ServerMgr Base => ServerMgr.Instance;
 
         /// <summary>
-        /// Gets a value indicating whether or not the server shows up on the modded or the community server list.
+        /// Gets a value indicating whether or not the server shows up on the modded or on the the community server list.
         /// </summary>
         public static bool IsModded { get; internal set; } = false;
 
         /// <summary>
-        /// Gets or sets the multiplier for gathering of individual items.
+        /// Gets or sets the multiplier of gathering for individual items.
         /// </summary>
         public static Dictionary<int, float> GatheringMultiplier = new Dictionary<int, float>();
     }
