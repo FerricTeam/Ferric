@@ -12,6 +12,11 @@ namespace Ferric.API.CommandSystem
     public static class CommandSystem
     {
         /// <summary>
+        /// Used by the <see cref="DebugVariable"/> command.
+        /// </summary>
+        public static object DebugVariable = string.Empty;
+
+        /// <summary>
         /// Initializes the command system.
         /// </summary>
         public static void Init()
@@ -70,14 +75,28 @@ namespace Ferric.API.CommandSystem
         private static void RegisterAssemblyCommands(Assembly assm)
         {
             List<ICommand> commands = new List<ICommand>();
+            List<ICommandVariable> commandVariables = new List<ICommandVariable>();
 
             foreach (var type in assm.GetTypes())
             {
-                if (!type.GetInterfaces().Contains(typeof(ICommand)))
-                    continue;
-                if (type.GetCustomAttributes(typeof(CommandAttribute)).Count() != 0)
+                if (type.GetInterfaces().Contains(typeof(ICommand)))
                 {
-                    commands.Add((ICommand)Activator.CreateInstance(type));
+                    if (type.GetCustomAttributes(typeof(CommandAttribute)).Count() != 0)
+                    {
+                        commands.Add((ICommand)Activator.CreateInstance(type));
+                    }
+
+                    continue;
+                }
+
+                if (type.GetInterfaces().Contains(typeof(ICommandVariable)))
+                {
+                    if (type.GetCustomAttributes(typeof(CommandAttribute)).Count() != 0)
+                    {
+                        commandVariables.Add((ICommandVariable)Activator.CreateInstance(type));
+                    }
+
+                    continue;
                 }
             }
 
@@ -97,6 +116,38 @@ namespace Ferric.API.CommandSystem
                             Client = client,
                             Variable = false,
                             Call = arg => cmd.Call(arg),
+                        };
+
+                        if (client)
+                        {
+                            clientCache.Add(converted);
+                        }
+
+                        if (cmdAttr.Type.HasFlag(CommandType.Server))
+                        {
+                            serverCache.Add(converted);
+                        }
+                    }
+                }
+            }
+
+            foreach (var cmd in commandVariables)
+            {
+                foreach (var attr in cmd.GetType().GetCustomAttributes(typeof(CommandAttribute)))
+                {
+                    if (attr is CommandAttribute cmdAttr)
+                    {
+                        bool client = cmdAttr.Type.HasFlag(CommandType.Client);
+                        var converted = new ConsoleSystem.Command()
+                        {
+                            Name = cmd.Command,
+                            Parent = cmd.Parent,
+                            FullName = cmd.FullName,
+                            ServerAdmin = cmd.ServerAdmin,
+                            Client = client,
+                            Variable = true,
+                            GetOveride = cmd.GetOveride,
+                            SetOveride = cmd.SetOveride,
                         };
 
                         if (client)

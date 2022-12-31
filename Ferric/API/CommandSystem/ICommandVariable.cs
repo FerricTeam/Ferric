@@ -5,7 +5,6 @@ namespace Ferric.API.CommandSystem
     /// <summary>
     /// Defines a console variable.
     /// </summary>
-    [Obsolete("Not implemented", true)]
     public interface ICommandVariable
     {
         /// <summary>
@@ -36,7 +35,7 @@ namespace Ferric.API.CommandSystem
         /// <summary>
         /// Gets a action to get the current value.
         /// </summary>
-        Action<string> GetOveride { get; }
+        Func<string> GetOveride { get; }
 
         /// <summary>
         /// Gets a action to set a new value.

@@ -27,6 +27,7 @@ namespace Ferric.API.CommandSystem.Commands
             arg.Reply = "Printing to Console";
             Console.Debug($"Ferric Version: {Loader.Version}");
             Console.Debug($"Is modded: {Server.IsModded}");
+            Console.Debug($"Debug variable: {CommandSystem.DebugVariable}");
             Console.Debug("Ferric config: " +
                           $"Config folder: {ConfigManager.FerricConfig.Instance.ConfigsFolder}" +
                           $"Dependencies folder: {ConfigManager.FerricConfig.Instance.DependenciesFolder}" +

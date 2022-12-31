@@ -133,6 +133,7 @@
         <Compile Include="API\CommandSystem\CommandAttribute.cs" />
         <Compile Include="API\CommandSystem\CommandSystem.cs" />
         <Compile Include="API\CommandSystem\Commands\DebugCommand.cs" />
+        <Compile Include="API\CommandSystem\Commands\DebugVariable.cs" />
         <Compile Include="API\CommandSystem\CommandType.cs" />
         <Compile Include="API\CommandSystem\ICommand.cs" />
         <Compile Include="API\CommandSystem\ICommandVariable.cs" />
@@ -187,11 +188,11 @@
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
+         Other similar extension points exist, see Microsoft.Common.targets. -->
     <Target Name="BeforeBuild">
     </Target>
-    <Target Name="AfterBuild">
+    <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug' And '$(OS)' == 'Windows_NT'">
+        <Exec Command="if not '$(FERRIC_DEBUG_DIR)'=='' copy /y $(OutputPath)$(AssemblyName).dll $(FERRIC_DEBUG_DIR)" />
     </Target>
-    -->
 
 </Project>

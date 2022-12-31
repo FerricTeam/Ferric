@@ -14,9 +14,9 @@ namespace Ferric.Patches.Events.Item
     [HarmonyPatch(typeof(ItemManager), nameof(ItemManager.Create))]
     public class ItemCreatePatch
     {
-        public static bool Prefix(ref global::Item __result, ref ItemDefinition __template, ref int __iAmount, ref ulong __skin)
+        public static bool Prefix(ref global::Item __result, ref ItemDefinition template, ref int iAmount, ref ulong skin)
         {
-            var ev = new ServerCreatingItemEventArgs(__template, __iAmount, __skin);
+            var ev = new ServerCreatingItemEventArgs(template, iAmount, skin);
             ServerHandler.OnServerCreatingItem(ev);
 
             if (!ev.Allowed)
@@ -25,9 +25,9 @@ namespace Ferric.Patches.Events.Item
                 return false;
             }
 
-            __template = ev.ItemDefinition;
-            __iAmount = ev.Amount;
-            __skin = ev.Skin;
+            template = ev.ItemDefinition;
+            iAmount = ev.Amount;
+            skin = ev.Skin;
 
             return true;
         }
