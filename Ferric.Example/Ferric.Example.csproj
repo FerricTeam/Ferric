@@ -42,9 +42,6 @@
         <Reference Include="Ferric" Condition=" '$(Configuration)' == 'Release' ">
           <HintPath>..\Ferric\bin\Release\Ferric.dll</HintPath>
         </Reference>
-        <Reference Include="Ferric" Condition=" '$(Configuration)' == 'Debug' ">
-          <HintPath>..\Ferric\bin\Debug\Ferric.dll</HintPath>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -70,6 +67,12 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <Version>1.2.0.435</Version>
       </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Ferric\Ferric.csproj">
+        <Project>{cefe9f2f-e46c-4fe5-b485-5f3b22077db1}</Project>
+        <Name>Ferric</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

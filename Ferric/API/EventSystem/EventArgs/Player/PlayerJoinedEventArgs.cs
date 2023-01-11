@@ -1,12 +1,11 @@
-namespace Ferric.API.EventArgs.Player
+namespace Ferric.API.EventSystem.EventArgs.Player
 {
-    using Ferric.API.EventArgs.Interfaces;
     using Ferric.API.Wrappers;
 
     /// <summary>
     /// Represents all the information when a player joins the server.
     /// </summary>
-    public class PlayerJoinedEventArgs : IEventArg, IPlayerEvent
+    public class PlayerJoinedEventArgs : Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg, Ferric.API.EventSystem.EventArgs.Interfaces.IPlayerEvent
     {
         /// <summary>
         /// Gets the <see cref="Player"/> who joined.

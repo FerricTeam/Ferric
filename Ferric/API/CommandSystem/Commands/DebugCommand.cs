@@ -1,5 +1,6 @@
 namespace Ferric.API.CommandSystem.Commands
 {
+    using Ferric.API.Attributes;
     using Ferric.API.Wrappers;
 
     /// <summary>
@@ -28,11 +29,11 @@ namespace Ferric.API.CommandSystem.Commands
             Console.Debug($"Ferric Version: {Loader.Version}");
             Console.Debug($"Is modded: {Server.IsModded}");
             Console.Debug($"Debug variable: {CommandSystem.DebugVariable}");
-            Console.Debug("Ferric config: " +
-                          $"Config folder: {ConfigManager.FerricConfig.Instance.ConfigsFolder}" +
-                          $"Dependencies folder: {ConfigManager.FerricConfig.Instance.DependenciesFolder}" +
-                          $"Plugin folder: {ConfigManager.FerricConfig.Instance.PluginFolder}" +
-                          $"Ferric folder: {ConfigManager.FerricConfig.FerricFolder}");
+            Console.Debug("Ferric boot config: " +
+                          $"Config folder: {ConfigManager.FerricBootConfig.Instance.ConfigsFolder}" +
+                          $"Dependencies folder: {ConfigManager.FerricBootConfig.Instance.DependenciesFolder}" +
+                          $"Plugin folder: {ConfigManager.FerricBootConfig.Instance.PluginFolder}" +
+                          $"Ferric folder: {ConfigManager.FerricBootConfig.FerricFolder}");
             Console.Debug("Plugins: ");
             if (Loader.Plugins.Count != 0)
             {

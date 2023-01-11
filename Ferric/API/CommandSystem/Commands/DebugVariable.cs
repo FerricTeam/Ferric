@@ -1,6 +1,7 @@
 namespace Ferric.API.CommandSystem.Commands
 {
     using System;
+    using Ferric.API.Attributes;
 
     /// <summary>
     /// Serves no purposed other than testing.

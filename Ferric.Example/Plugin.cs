@@ -3,8 +3,10 @@
 namespace Example
 {
     using System;
-    using Ferric.API.EventArgs.Server;
-    using Ferric.EventHandlers;
+    using Ferric.API.Attributes;
+    using Ferric.API.EventSystem.Enums;
+    using Ferric.API.EventSystem.EventArgs.Server;
+    using Ferric.API.EventSystem.EventHandlers;
     using Console = Ferric.API.Wrappers.Console;
 
     public class Plugin : Ferric.API.Features.Plugin
@@ -23,32 +25,33 @@ namespace Example
         /// <inheritdoc />
         public override void OnEnabled()
         {
-            Console.Debug("Enabled!");
             Console.Debug($"Config int: {Cfg.IntValue}");
             Console.Debug($"Config string: {Cfg.TextValue}");
             Console.Debug($"Config bool: {Cfg.BoolValue}");
             Console.Debug($"Config float: {Cfg.FloatValue}");
             Console.Debug($"Config doc float: {Cfg.DocumentedFloatValue.Description} {Cfg.DocumentedFloatValue.Value}");
 
-            ServerHandler.SendingServerCommand += SendingCommand;
-            ServerHandler.ServerOnMessage += ServerOnMessage;
+            ServerHandler.ServerMessage += ServerOnMessage;
 
             // Dont do this: this will not be disabled when the plugin is disabled.
             // PlayerHandler.PlayerJoined += args => Console.Debug($"joined: {args.Player.UserId}, {args.Player.IsAdmin}");
+            Console.Debug("Enabled!");
         }
 
         /// <inheritdoc />
         public override void OnDisabled()
         {
+            ServerHandler.ServerMessage -= ServerOnMessage;
             Console.Debug("Disabled!");
         }
 
-        private void ServerOnMessage(ServerOnMessageEventArgs ev)
+        private void ServerOnMessage(ServerMessageEventArgs ev)
         {
             ev.Message += " (modified by plugin)";
         }
 
-        private void SendingCommand(SendingServerCommandEventArgs ev)
+        [Event(EventType.SendingServerCommand)]
+        private void SendingCommand(ServerSendingCommandEventArgs ev)
         {
             Console.Debug("SendingCommand works!");
             Console.Debug(string.Concat(new object[]

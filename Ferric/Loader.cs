@@ -7,7 +7,9 @@ namespace Ferric
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Ferric.API.Attributes;
     using Ferric.API.CommandSystem;
+    using Ferric.API.EventSystem;
     using Ferric.API.Features;
     using Ferric.API.Interfaces;
     using Ferric.API.Wrappers;
@@ -66,11 +68,20 @@ namespace Ferric
 
             Console.Warn($"{currentAssemblyName.Name} - v{currentAssemblyName.Version}");
 
-            ConfigManager.LoadFerricConfig();
+            try
+            {
+                ConfigManager.LoadFerricConfig();
+            }
+            catch (Exception e)
+            {
+                Console.Error("Failed to load ferric config, aborting...");
+                Console.Error(e.Message);
+                return;
+            }
 
-            string dependenciesFolder = ConfigManager.FerricConfig.Instance.DependenciesFolder;
-            string pluginFolder = ConfigManager.FerricConfig.Instance.PluginFolder;
-            string configFolder = ConfigManager.FerricConfig.Instance.ConfigsFolder;
+            string dependenciesFolder = ConfigManager.FerricBootConfig.Instance.DependenciesFolder;
+            string pluginFolder = ConfigManager.FerricBootConfig.Instance.PluginFolder;
+            string configFolder = ConfigManager.FerricBootConfig.Instance.ConfigsFolder;
 
             if (!Directory.Exists(dependenciesFolder))
             {
@@ -162,6 +173,7 @@ namespace Ferric
                         plugin.OnEnabled();
                         if (plugin.IsModded && !Server.IsModded)
                             Server.IsModded = true;
+                        RegisterEventAttributes(plugin);
                         Console.Info($"{plugin.Name} by {plugin.Author} - v{plugin.Version} has been enabled");
                         continue;
                     }
@@ -186,7 +198,57 @@ namespace Ferric
         public static IPlugin GetPlugin(string id) => Plugins.FirstOrDefault(x => string.Equals(x.ID, id, StringComparison.CurrentCultureIgnoreCase));
 
         /// <summary>
-        /// Disabled all plugins.
+        /// Registers all event attributes of a plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin to register them for.</param>
+        public static void RegisterEventAttributes(IPlugin plugin)
+        {
+            var types = new List<object>()
+            {
+                plugin,
+            };
+
+            foreach (var field in plugin.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+            {
+                if (field.GetCustomAttributes(typeof(EventHandlerAttribute)).Count() != 0)
+                {
+                    types.Add(field.GetValue(plugin));
+                }
+            }
+
+            foreach (var obj in types)
+            {
+                var type = obj.GetType();
+                var publicMethods = type.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static);
+                var privateMethods = ConfigManager.ConfigFerric.CheckPrivateMethods.Value
+                    ? type.GetMethods(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static)
+                    : new MethodInfo[] { };
+                for (int i = 0; i < publicMethods.Length + privateMethods.Length; i++)
+                {
+                    var method = i >= publicMethods.Length ? privateMethods[i - publicMethods.Length] : publicMethods[i];
+                    var eventAttributes = method.GetCustomAttributes(typeof(EventAttribute)).ToArray();
+
+                    if (eventAttributes.Length != 0)
+                    {
+                        foreach (var attribute in eventAttributes)
+                        {
+                            try
+                            {
+                                RegisterAttribute(attribute, method, obj);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.Error($"Could not subscribe method {method.Name} to event {(attribute as EventAttribute)?.EventType.ToString() ?? "null"}");
+                                Console.Error(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Disables all plugins.
         /// </summary>
         internal static void Shutdown()
         {
@@ -200,6 +262,53 @@ namespace Ferric
                 {
                     Console.Error($"{plugin.Name} threw an error disabling: {e}");
                 }
+            }
+        }
+
+        private static void RegisterAttribute(Attribute attribute, MethodInfo method, object instance)
+        {
+            if (attribute is EventAttribute eventAttribute)
+                AddToInvocationList(eventAttribute, method, instance);
+            else
+                throw new ArgumentException("Event attribute is not IEventAttribute, Ferric skill issue?", nameof(attribute));
+        }
+
+        private static void AddToInvocationList(EventAttribute attribute, MethodInfo methodInfo, object instance)
+        {
+            var mapping = EventTypeMappings.GetMapping(attribute.EventType) ??
+                          throw new KeyNotFoundException(
+                              $"Could not find mapping for event type {attribute.EventType}, is Ferric outdated?");
+            var parameter = methodInfo.GetParameters().FirstOrDefault() ?? throw new ArgumentException("Argument count cannot be 0!");
+            if (parameter.ParameterType != mapping.EventArgs)
+            {
+                throw new ArgumentException($"Argument type was {parameter.ParameterType.FullName}, expected: {mapping.EventArgs.FullName}");
+            }
+
+            if (!EventTypeMappings.ExtendedSubscribersMap.TryGetValue(attribute.EventType, out var methodList))
+            {
+                EventTypeMappings.ExtendedSubscribersMap.Add(attribute.EventType, new (object ClassInstance, MethodInfo[] MethodInfos)[] { (instance, new[] { methodInfo }) });
+                return;
+            }
+
+            if (methodList.All(x => x.ClassInstance != instance))
+            {
+                EventTypeMappings.ExtendedSubscribersMap[attribute.EventType] = methodList.Append((instance, new[] { methodInfo })).ToArray();
+                return;
+            }
+
+            int i = -1;
+            foreach (var touple in EventTypeMappings.ExtendedSubscribersMap[attribute.EventType])
+            {
+                i++;
+                if (touple.ClassInstance != instance)
+                {
+                    continue;
+                }
+
+                var valueTuple = touple;
+                valueTuple.MethodInfos = touple.MethodInfos.Append(methodInfo).ToArray();
+                EventTypeMappings.ExtendedSubscribersMap[attribute.EventType][i] = valueTuple;
+                break;
             }
         }
 

@@ -1,12 +1,11 @@
-namespace Ferric.API.EventArgs.Server
+namespace Ferric.API.EventSystem.EventArgs.Server
 {
-    using Ferric.API.EventArgs.Interfaces;
     using JetBrains.Annotations;
 
     /// <summary>
     /// Represents all the information when a console command is sent.
     /// </summary>
-    public class SendingServerCommandEventArgs : IEventArg, IDenyable
+    public class ServerSendingCommandEventArgs : Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg, Ferric.API.EventSystem.EventArgs.Interfaces.IDenyable
     {
         /// <summary>
         /// Gets or sets a value indicating whether or not the command will be executed.
@@ -35,10 +34,10 @@ namespace Ferric.API.EventArgs.Server
         public bool HasPermission { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SendingServerCommandEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ServerSendingCommandEventArgs"/> class.
         /// </summary>
         /// <param name="args">ConsoleSystem.Arg.</param>
-        public SendingServerCommandEventArgs(ConsoleSystem.Arg args)
+        public ServerSendingCommandEventArgs(ConsoleSystem.Arg args)
         {
             Allowed = true;
             ConsoleSystemArg = args;

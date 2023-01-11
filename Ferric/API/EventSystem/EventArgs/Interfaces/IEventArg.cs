@@ -1,4 +1,4 @@
-namespace Ferric.API.EventArgs.Interfaces
+namespace Ferric.API.EventSystem.EventArgs.Interfaces
 {
     /// <summary>
     /// Defines an interface that all EventArgs implement.

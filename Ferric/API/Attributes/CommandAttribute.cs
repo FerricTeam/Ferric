@@ -1,9 +1,10 @@
-namespace Ferric.API.CommandSystem
+namespace Ferric.API.Attributes
 {
     using System;
+    using Ferric.API.CommandSystem;
 
     /// <summary>
-    /// Used to mark a command.
+    /// Marks a command.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class CommandAttribute : Attribute

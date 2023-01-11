@@ -130,20 +130,27 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="API\CommandSystem\CommandAttribute.cs" />
+        <Compile Include="API\Attributes\CommandAttribute.cs" />
+        <Compile Include="API\Attributes\EventHandlerAttribute.cs" />
+        <Compile Include="API\Attributes\EventAttribute.cs" />
         <Compile Include="API\CommandSystem\CommandSystem.cs" />
         <Compile Include="API\CommandSystem\Commands\DebugCommand.cs" />
         <Compile Include="API\CommandSystem\Commands\DebugVariable.cs" />
         <Compile Include="API\CommandSystem\CommandType.cs" />
         <Compile Include="API\CommandSystem\ICommand.cs" />
         <Compile Include="API\CommandSystem\ICommandVariable.cs" />
-        <Compile Include="API\EventArgs\Interfaces\IDenyable.cs" />
-        <Compile Include="API\EventArgs\Interfaces\IEventArg.cs" />
-        <Compile Include="API\EventArgs\Interfaces\IPlayerEvent.cs" />
-        <Compile Include="API\EventArgs\Player\PlayerJoinedEventArgs.cs" />
-        <Compile Include="API\EventArgs\Server\SendingServerCommandEventArgs.cs" />
-        <Compile Include="API\EventArgs\Server\ServerCreatingItemEventArgs.cs" />
-        <Compile Include="API\EventArgs\Server\ServerOnMessageEventArgs.cs" />
+        <Compile Include="API\EventSystem\Enums\EventType.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Interfaces\IDenyable.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Interfaces\IEventArg.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Interfaces\IPlayerEvent.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Player\PlayerJoinedEventArgs.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Server\ServerCreatingItemEventArgs.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Server\ServerMessageEventArgs.cs" />
+        <Compile Include="API\EventSystem\EventArgs\Server\ServerSendingCommandEventArgs.cs" />
+        <Compile Include="API\EventSystem\EventExtensions.cs" />
+        <Compile Include="API\EventSystem\EventHandlers\PlayerHandler.cs" />
+        <Compile Include="API\EventSystem\EventHandlers\ServerHandler.cs" />
+        <Compile Include="API\EventSystem\EventTypeMappings.cs" />
         <Compile Include="API\Features\Config.cs" />
         <Compile Include="API\Features\Documented.cs" />
         <Compile Include="API\Features\Plugin.cs" />
@@ -152,10 +159,8 @@
         <Compile Include="API\Wrappers\Items\Item.cs" />
         <Compile Include="API\Wrappers\Player.cs" />
         <Compile Include="API\Wrappers\Server.cs" />
+        <Compile Include="ConfigFerric.cs" />
         <Compile Include="ConfigManager.cs" />
-        <Compile Include="EventHandlers\Extensions.cs" />
-        <Compile Include="EventHandlers\PlayerHandler.cs" />
-        <Compile Include="EventHandlers\ServerHandler.cs" />
         <Compile Include="Loader.cs" />
         <Compile Include="Patches\Events\Item\ItemCreatePatch.cs" />
         <Compile Include="Patches\Events\Player\PlayerJoinedPatch.cs" />

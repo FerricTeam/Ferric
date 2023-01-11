@@ -1,5 +1,6 @@
 namespace Example.Commands
 {
+    using Ferric.API.Attributes;
     using Ferric.API.CommandSystem;
 
     /// <inheritdoc />

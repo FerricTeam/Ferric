@@ -3,8 +3,9 @@
 
 namespace Ferric.Patches.Events.Server
 {
-    using Ferric.API.EventArgs.Server;
-    using Ferric.EventHandlers;
+    using Ferric.API.EventSystem;
+    using Ferric.API.EventSystem.EventArgs.Server;
+    using Ferric.API.EventSystem.EventHandlers;
     using Harmony;
     using UnityEngine;
 
@@ -26,8 +27,8 @@ namespace Ferric.Patches.Events.Server
                 return true;
             }
 
-            var args = new SendingServerCommandEventArgs(arg);
-            ServerHandler.OnSendingServerCommand(args);
+            var args = new ServerSendingCommandEventArgs(arg);
+            ServerHandler.SendingServerCommand.InvokeSafely(args);
 
             if (!args.Allowed)
                 return false;

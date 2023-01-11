@@ -4,6 +4,7 @@ namespace Ferric.API.CommandSystem
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Ferric.API.Attributes;
     using Console = Ferric.API.Wrappers.Console;
 
     /// <summary>

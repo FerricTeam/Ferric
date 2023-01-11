@@ -4,8 +4,8 @@
 
 namespace Ferric.Patches.Events.Item
 {
-    using Ferric.API.EventArgs.Server;
-    using Ferric.EventHandlers;
+    using Ferric.API.EventSystem;
+    using Ferric.API.EventSystem.EventHandlers;
     using Harmony;
 
     /// <summary>
@@ -16,8 +16,8 @@ namespace Ferric.Patches.Events.Item
     {
         public static bool Prefix(ref global::Item __result, ref ItemDefinition template, ref int iAmount, ref ulong skin)
         {
-            var ev = new ServerCreatingItemEventArgs(template, iAmount, skin);
-            ServerHandler.OnServerCreatingItem(ev);
+            var ev = new Ferric.API.EventSystem.EventArgs.Server.ServerCreatingItemEventArgs(template, iAmount, skin);
+            ServerHandler.ServerCreatingItem.InvokeSafely(ev);
 
             if (!ev.Allowed)
             {
