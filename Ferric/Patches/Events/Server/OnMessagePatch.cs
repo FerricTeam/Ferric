@@ -5,6 +5,7 @@ namespace Ferric.Patches.Events.Server
 {
     using Facepunch;
     using Ferric.API.EventSystem;
+    using Ferric.API.EventSystem.EventArgs.Server;
     using Ferric.API.EventSystem.EventHandlers;
     using Harmony;
     using UnityEngine;
@@ -50,7 +51,7 @@ namespace Ferric.Patches.Events.Server
         // port this to IL someday.
         public static bool Prefix(ref string log, ref string stacktrace, ref LogType type)
         {
-            Ferric.API.EventSystem.EventArgs.Server.ServerMessageEventArgs args = new Ferric.API.EventSystem.EventArgs.Server.ServerMessageEventArgs(log, stacktrace, type);
+            ServerMessageEventArgs args = new ServerMessageEventArgs(log, stacktrace, type);
             ServerHandler.ServerMessage.InvokeSafely(args);
 
             if (!args.Allowed)

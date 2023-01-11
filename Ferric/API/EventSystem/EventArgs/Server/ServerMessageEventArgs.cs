@@ -6,7 +6,7 @@ namespace Ferric.API.EventSystem.EventArgs.Server
     /// <summary>
     /// Represents all the information when a console message is sent.
     /// </summary>
-    public class ServerMessageEventArgs : Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg, Ferric.API.EventSystem.EventArgs.Interfaces.IDenyable
+    public class ServerMessageEventArgs : Interfaces.IEventArg, Interfaces.IDenyable
     {
         /// <summary>
         /// Gets or sets a value indicating whether or not the message will be printed to the <see cref="Ferric.API.Wrappers.Console"/>.

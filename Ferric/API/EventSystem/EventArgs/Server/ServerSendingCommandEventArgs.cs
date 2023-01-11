@@ -5,7 +5,7 @@ namespace Ferric.API.EventSystem.EventArgs.Server
     /// <summary>
     /// Represents all the information when a console command is sent.
     /// </summary>
-    public class ServerSendingCommandEventArgs : Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg, Ferric.API.EventSystem.EventArgs.Interfaces.IDenyable
+    public class ServerSendingCommandEventArgs : Interfaces.IEventArg, Interfaces.IDenyable
     {
         /// <summary>
         /// Gets or sets a value indicating whether or not the command will be executed.

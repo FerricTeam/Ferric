@@ -5,6 +5,7 @@
 namespace Ferric.Patches.Events.Player
 {
     using Ferric.API.EventSystem;
+    using Ferric.API.EventSystem.EventArgs.Player;
     using Ferric.API.EventSystem.EventHandlers;
     using Ferric.API.Wrappers;
     using Harmony;
@@ -20,7 +21,7 @@ namespace Ferric.Patches.Events.Player
         {
             Player ply = new Player(__instance);
             Player.List.Add(ply);
-            PlayerHandler.PlayerJoined.InvokeSafely(new Ferric.API.EventSystem.EventArgs.Player.PlayerJoinedEventArgs(ply));
+            PlayerHandler.PlayerJoined.InvokeSafely(new PlayerJoinedEventArgs(ply));
         }
     }
 }

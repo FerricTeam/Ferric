@@ -1,6 +1,7 @@
 namespace Ferric.API.EventSystem.EventHandlers
 {
     using System;
+    using Ferric.API.EventSystem.EventArgs.Player;
     using Ferric.API.Wrappers;
     using Console = Ferric.API.Wrappers.Console;
 
@@ -12,6 +13,6 @@ namespace Ferric.API.EventSystem.EventHandlers
         /// <summary>
         /// Invoked when a <see cref="Player"/> joined.
         /// </summary>
-        public static Action<Ferric.API.EventSystem.EventArgs.Player.PlayerJoinedEventArgs> PlayerJoined = obj => { };
+        public static Action<PlayerJoinedEventArgs> PlayerJoined = obj => { };
     }
 }

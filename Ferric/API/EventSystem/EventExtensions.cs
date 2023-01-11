@@ -1,8 +1,8 @@
 namespace Ferric.API.EventSystem
 {
     using System;
-    using System.Linq;
     using System.Reflection;
+    using Ferric.API.EventSystem.EventArgs.Interfaces;
     using Console = Ferric.API.Wrappers.Console;
 
     /// <summary>
@@ -17,7 +17,7 @@ namespace Ferric.API.EventSystem
         /// <param name="args">The action arguments.</param>
         /// <typeparam name="T">The actions type parameter.</typeparam>
         public static void InvokeSafely<T>(this Action<T> action, T args)
-            where T : Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg
+            where T : IEventArg
         {
             if (action is null)
                 return;

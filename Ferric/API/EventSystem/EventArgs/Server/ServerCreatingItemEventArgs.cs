@@ -3,7 +3,7 @@ namespace Ferric.API.EventSystem.EventArgs.Server
     /// <summary>
     /// Represents all the information when an <see cref="Item"/> is created.
     /// </summary>
-    public class ServerCreatingItemEventArgs : Ferric.API.EventSystem.EventArgs.Interfaces.IDenyable, Ferric.API.EventSystem.EventArgs.Interfaces.IEventArg
+    public class ServerCreatingItemEventArgs : Interfaces.IDenyable, Interfaces.IEventArg
     {
         /// <summary>
         /// Gets or sets a value indicating whether or not the item will be created.
